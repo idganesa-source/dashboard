@@ -660,16 +660,17 @@
 
   <script>
     // =========================================================================
-    // ---> MASUKKAN URL WEB APP APPS SCRIPT DI SINI (AKHIRAN /exec) <---
+    // URL WEB APP APPS SCRIPT SUDAH DIGANTI DAN BERSIAP DIPAKAI
     // =========================================================================
-    const GAS_WEBAPP_URL = "TARUH_URL_WEB_APP_APPS_SCRIPT_DI_SINI";
+    const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwS_ExTOXxxWJI-7MCT1nCKtD7LB8dL1_QT_enD8FHfwdFJJ-7ni-3WATaOK8Q6VyfvAw/exec";
 
-    // FUNGSI JEMBATAN (FETCH API) PENGGANTI google.script.run
+    // FUNGSI JEMBATAN (FETCH API) YANG DISEMPURNAKAN AGAR BEBAS CORS & REDIRECT ERROR
     async function callGAS(actionName, payloadData = {}) {
       const response = await fetch(GAS_WEBAPP_URL, {
         method: "POST",
+        redirect: "follow",
         headers: {
-          "Content-Type": "text/plain;charset=utf-8", // Cegah CORS preflight error
+          "Content-Type": "text/plain;charset=utf-8", // Mencegah blokir CORS di GitHub Pages
         },
         body: JSON.stringify({
           action: actionName,
