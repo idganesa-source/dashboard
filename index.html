@@ -799,7 +799,7 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
 
-            // 🔥 PERBAIKAN PENTING: KONSULTAN AKAN MEMINTA SELURUH DATA KE BACKEND SEPERTI SUPER ADMIN 🔥
+            // 🔥 SOLUSI UTAMA: Agar tidak error "Belum ada data", konsultan meminjam kunci "AKTARA_PSIKOLOG" untuk mengunduh seluruh data! 🔥
             const targetSekolahFetch = (isSuperAdmin || isKonsultan) ? "AKTARA_PSIKOLOG" : res.namaSekolah;
 
             callGAS("getSchoolData", { namaSekolah: targetSekolahFetch })
@@ -1025,7 +1025,7 @@
       const btnUpload = document.getElementById('btn-upload-excel');
       const btnCreateUser = document.getElementById('btn-create-user');
 
-      // 🔥 LOGIKA BARU DI INIT DASHBOARD: FILTER SEKOLAH TERBUKA UNTUK ADMIN & KONSULTAN 🔥
+      // 🔥 LOGIKA DI INIT DASHBOARD: FILTER SEKOLAH TERBUKA UNTUK ADMIN & KONSULTAN 🔥
       const isSuperAdmin = (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG");
       const isKonsultan = (sessionSekolah.toUpperCase() === "KONSULTAN_AKTARA" || document.getElementById('input-email').value.trim().toLowerCase() === "aktara@psikolog");
 
