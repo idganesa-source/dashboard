@@ -771,9 +771,10 @@
             const btnUpload = document.getElementById('btn-upload-excel');
             const btnCreateUser = document.getElementById('btn-create-user');
 
-            // 🔥 LOGIKA BARU: PENGECEKAN SUPER ADMIN DAN KONSULTAN PSIKOLOG 🔥
-            const isSuperAdmin = (sessionSekolah.toUpperCase() === "SUPER ADMIN");
-            const isKonsultan = (sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
+            // 🔥 LOGIKA BARU ANTI-TYPO: PENGECEKAN SUPER ADMIN DAN KONSULTAN PSIKOLOG 🔥
+            const sek = (sessionSekolah || "").trim().toUpperCase();
+            const isSuperAdmin = (sek === "SUPER ADMIN" || sek === "AKTARA_PSIKOLOG");
+            const isKonsultan = (sek === "AKTARA_PSIKOLOGI" || sek === "AKATARA_PSIKOLOGI" || sek === "KONSULTAN_AKTARA");
 
             if (isSuperAdmin || isKonsultan) {
               document.getElementById('box-filter-sekolah').style.display = 'block';
@@ -1022,8 +1023,9 @@
       const btnCreateUser = document.getElementById('btn-create-user');
 
       // 🔥 LOGIKA DI INIT DASHBOARD: FILTER SEKOLAH TERBUKA UNTUK ADMIN & KONSULTAN 🔥
-      const isSuperAdmin = (sessionSekolah.toUpperCase() === "SUPER ADMIN");
-      const isKonsultan = (sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
+      const sek = (sessionSekolah || "").trim().toUpperCase();
+      const isSuperAdmin = (sek === "SUPER ADMIN" || sek === "AKTARA_PSIKOLOG");
+      const isKonsultan = (sek === "AKTARA_PSIKOLOGI" || sek === "AKATARA_PSIKOLOGI" || sek === "KONSULTAN_AKTARA");
 
       if (isSuperAdmin || isKonsultan) {
         const setSekolah = new Set();
@@ -1063,8 +1065,8 @@
       let fSekolah = $('#filter-sekolah').val();
       let fKelas = $('#filter-kelas').val();
       
-      // Baik SUPER ADMIN maupun AKATARA_PSIKOLOGI bisa membaca semua sekolah
-      const isPrivileged = (sessionSekolah.toUpperCase() === "SUPER ADMIN" || sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
+      const sek = (sessionSekolah || "").trim().toUpperCase();
+      const isPrivileged = (sek === "SUPER ADMIN" || sek === "AKTARA_PSIKOLOG" || sek === "AKTARA_PSIKOLOGI" || sek === "AKATARA_PSIKOLOGI" || sek === "KONSULTAN_AKTARA");
       if (!isPrivileged) fSekolah = sessionSekolah;
 
       let validRows = allRows;
@@ -1111,8 +1113,8 @@
 
       let filteredRows = allRows;
       
-      // Baik SUPER ADMIN maupun AKATARA_PSIKOLOGI bisa memfilter sekolah
-      const isPrivileged = (sessionSekolah.toUpperCase() === "SUPER ADMIN" || sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
+      const sek = (sessionSekolah || "").trim().toUpperCase();
+      const isPrivileged = (sek === "SUPER ADMIN" || sek === "AKTARA_PSIKOLOG" || sek === "AKTARA_PSIKOLOGI" || sek === "AKATARA_PSIKOLOGI" || sek === "KONSULTAN_AKTARA");
       if (isPrivileged && filterSekolah && colIndices.kolomNamaSekolah !== undefined) {
         filteredRows = filteredRows.filter(r => String(r[colIndices.kolomNamaSekolah]).trim() === filterSekolah);
       }
