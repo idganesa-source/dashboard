@@ -108,29 +108,63 @@
     #loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.95); padding: 30px 50px; border-radius: 12px; border: 1px solid #e2e8f0; z-index: 2000; text-align: center; display: none; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);}
     
     /* =======================================================
-       🔥 PERBAIKAN SELECT2: TEKS JELAS DAN DROPDOWN WARNA TOSCA
+       🔥 PERBAIKAN TOTAL SELECT2 (MEMASTIKAN TEKS SELALU TERBACA)
     ======================================================= */
-    .select2-container--default .select2-selection--single { background-color: #ffffff !important; border: 1px solid #cbd5e1 !important; border-radius: 8px !important; height: 40px !important; outline: none; }
-    .select2-container--default .select2-selection--single .select2-selection__rendered { color: #1e293b !important; line-height: 38px !important; padding-left: 12px !important; }
-    .select2-container--default .select2-selection--single .select2-selection__arrow { height: 38px !important; }
-    .select2-dropdown { background-color: #ffffff !important; border: 1px solid #cbd5e1 !important; border-radius: 8px !important; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-    .select2-search--dropdown .select2-search__field { background-color: #f8fafc !important; color: #1e293b !important; border: 1px solid #cbd5e1 !important; border-radius: 6px; outline: none; }
-    .select2-results__option { color: #334155 !important; }
-    
-    /* PERBAIKAN UTAMA: Saat item di-hover / aktif / highlight, gunakan warna tosca dengan teks putih pekat! */
-    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
+    .select2-container--default .select2-selection--single {
+      background-color: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      border-radius: 8px !important;
+      height: 40px !important;
+      outline: none;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #1e293b !important;
+      line-height: 38px !important;
+      padding-left: 12px !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 38px !important;
+    }
+    .select2-dropdown {
+      background-color: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      border-radius: 8px !important;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
+    .select2-search--dropdown .select2-search__field {
+      background-color: #f8fafc !important;
+      color: #1e293b !important;
+      border: 1px solid #cbd5e1 !important;
+      border-radius: 6px;
+      outline: none;
+    }
+    /* 1. Kondisi normal untuk item dropdown */
+    .select2-results__option {
+      color: #1e293b !important;
+      background-color: #ffffff !important;
+      padding: 8px 12px !important;
+    }
+    /* 2. Kondisi untuk opsi yang SEDANG TERPILIH/AKTIF (Menghilangkan masalah teks putih vs background putih) */
+    .select2-container--default .select2-results__option[aria-selected="true"],
+    .select2-container--default .select2-results__option--selected {
+      background-color: #e0f2fe !important;
+      color: #0f766e !important;
+      font-weight: 700 !important;
+    }
+    /* 3. Kondisi saat kursor HOVER di atas item opsi (Warna Tosca dengan Teks Putih) */
     .select2-container--default .select2-results__option--highlighted[aria-selected],
-    .select2-container--default .select2-results__option--highlighted { 
-      background-color: #0d9488 !important; 
-      color: #ffffff !important; 
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
+    .select2-container--default .select2-results__option--highlighted {
+      background-color: #0d9488 !important;
+      color: #ffffff !important;
     }
-    .select2-container--default .select2-results__option[aria-selected=true] { 
-      background-color: #ccfbf1 !important; 
-      color: #0f766e !important; 
-      font-weight: 600 !important; 
+    .select2-container--default .select2-selection--single .select2-selection__clear {
+      color: #64748b !important;
+      font-size: 20px !important;
+      font-weight: bold !important;
+      margin-right: 15px !important;
+      margin-top: 2px !important;
     }
-    
-    .select2-container--default .select2-selection--single .select2-selection__clear { color: #64748b !important; font-size: 20px !important; font-weight: bold !important; margin-right: 15px !important; margin-top: 2px !important; }
 
     .btn-reset-filter { background-color: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; font-size: 11px; font-weight: bold; border-radius: 4px; padding: 2px 8px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
     .btn-reset-filter:hover { background-color: #ef4444; color: white; border-color: #ef4444; }
