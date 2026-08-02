@@ -28,7 +28,7 @@
     .app-wrapper { display: flex; width: 100%; height: 100vh; overflow: hidden; }
     
     /* =======================================================
-       🔥 LOGIN SCREEN BARU: SPLIT 2 KOLOM (MODERN & ELEGAN)
+       🔥 LOGIN SCREEN: SPLIT 2 KOLOM (MODERN & ELEGAN)
     ======================================================= */
     #login-screen {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -139,7 +139,7 @@
     #login-error { color: #ef4444; font-size: 13px; font-weight: 600; margin-top: -5px; margin-bottom: 15px; display: none; }
 
     /* =======================================================
-       🔥 PERBAIKAN RESPONSIVE KHUSUS MOBILE (HP)
+       🔥 OPTIMALISASI TAMPILAN MOBILE (HP) - BEBAS LAG & RAPI
     ======================================================= */
     @media (max-width: 900px) {
       #login-screen { flex-direction: column; overflow-y: auto; }
@@ -159,6 +159,19 @@
       .chart-div { min-height: 280px; }
       .chart-div-large { min-height: 340px; }
       .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+      /* Memastikan tabel individu di layar kecil rapi, teks bisa turun baris, tidak melebar ke kanan */
+      .paper-report { padding: 20px 15px; }
+      .custom-table-light th, .custom-table-light td {
+        padding: 8px 6px;
+        font-size: 11px;
+        white-space: normal !important;
+        word-break: break-word;
+      }
+      .custom-table-light {
+        width: 100%;
+        table-layout: fixed;
+      }
     }
 
     /* SIDEBAR (TETAP ELEGAN GELAP) */
@@ -263,7 +276,7 @@
       outline: none;
     }
 
-    /* 1. Item Dropdown Normal (Teks gelap di atas background putih) */
+    /* 1. Item Dropdown Normal */
     .select2-container .select2-results__option,
     .select2-container--default .select2-results__option {
       color: #1e293b !important;
@@ -272,7 +285,7 @@
       font-weight: 500 !important;
     }
 
-    /* 2. Item yang DI-HOVER atau SEDANG TERPILIH/AKTIF (Teks PUTIH PEKAT di atas background TOSCA) */
+    /* 2. Item yang DI-HOVER atau SEDANG TERPILIH/AKTIF */
     .select2-container .select2-results__option--highlighted,
     .select2-container--default .select2-results__option--highlighted,
     .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
@@ -532,9 +545,8 @@
     </div>
   </div>
 
-  <!-- 🔥 LOGIN SCREEN BARU: SPLIT 2 KOLOM 🔥 -->
+  <!-- 🔥 LOGIN SCREEN: SPLIT 2 KOLOM 🔥 -->
   <div id="login-screen">
-    <!-- PANEL KIRI (DARK GRADIENT & VALUE PROPOSITION) -->
     <div class="login-left-panel">
       <div class="login-left-brand">
         <img src="https://lh3.googleusercontent.com/d/1Wqpp9soE46uHXkCdJiPF3pzbt8QGTypJ" alt="Logo Ganesa">
@@ -555,7 +567,6 @@
       </div>
     </div>
 
-    <!-- PANEL KANAN (FORM LOGIN CLEAN WHITE) -->
     <div class="login-right-panel">
       <div class="login-form-container">
         <h2>Admin sign in</h2>
@@ -1770,8 +1781,16 @@
       setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
     }
 
+    // 🔥 OPTIMALISASI RESIZE DEBOUNCE (Mencegah Lag / Hang Saat Resize di HP & Desktop)
     let resizeTimer;
-    window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(function() { if (allRows && allRows.length > 0 && document.visibilityState === 'visible') { updateDashboard(); } }, 250); });
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        if (allRows && allRows.length > 0 && document.visibilityState === 'visible') {
+          updateDashboard();
+        }
+      }, 300);
+    });
     document.addEventListener("visibilitychange", function() { if (document.visibilityState === 'visible' && allRows && allRows.length > 0) { window.dispatchEvent(new Event('resize')); } });
 
     // 🔥 FUNGSI UPLOAD EXCEL (KHUSUS SUPER ADMIN) 🔥
