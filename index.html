@@ -450,6 +450,22 @@
     .custom-table-light tr:nth-child(odd) td { background-color: #ffffff; }
     .custom-table-light td.text-start { text-align: left; }
 
+    @media (max-width: 768px) {
+      .top-navbar { padding: 12px 15px; }
+      .hamburger-btn { margin-right: 12px; font-size: 22px; }
+      .top-title { font-size: 16px; }
+      .btn-action-group { gap: 6px; }
+      .btn-top { padding: 8px 10px; font-size: 16px; }
+      .btn-top span { display: none; } 
+      .school-header-panel { flex-direction: column; align-items: flex-start; gap: 12px; padding: 15px; }
+      .assessment-title { text-align: left; padding-left: 0; border-left: none; border-top: 1px solid #e2e8f0; padding-top: 10px; width: 100%; font-size: 14px; }
+      .detail-hint { opacity: 1; }
+      .paper-report { padding: 18px; }
+      .pr-header img { width: 60px; height: 60px; }
+      .pr-header-text h1 { font-size: 20px; }
+      .mbti-label-left, .mbti-label-right { font-size: 11px; width: 60px; }
+      .mi-label-left { width: 100px; font-size: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -493,7 +509,7 @@
         </div>
         <div class="modal-footer" style="border-top: 1px solid #e2e8f0;">
           <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-save-account" onclick="submitNewUser()" style="background-color: #0d9488; border: none;">Simpan Akun</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="submitNewUser()" style="background-color: #0d9488; border: none;">Simpan Akun</button>
         </div>
       </div>
     </div>
@@ -529,7 +545,7 @@
     </div>
   </div>
 
-  <!-- 🔥 LOGIN SCREEN BARU: SPLIT 2 KOLOM 🔥 -->
+  <!-- 🔥 LOGIN SCREEN: SPLIT 2 KOLOM 🔥 -->
   <div id="login-screen">
     <div class="login-left-panel">
       <div class="login-left-brand">
@@ -879,41 +895,20 @@
     // =========================================================================
     const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwS_ExTOXxxWJI-7MCT1nCKtD7LB8dL1_QT_enD8FHfwdFJJ-7ni-3WATaOK8Q6VyfvAw/exec";
 
-    // FUNGSI JEMBATAN (FETCH API) YANG DISEMPURNAKAN DENGAN AUTO-RETRY (ANTI-ERROR 'G')
-    async function callGAS(actionName, payloadData = {}, retries = 3) {
-      try {
-        const response = await fetch(GAS_WEBAPP_URL, {
-          method: "POST",
-          redirect: "follow",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8",
-          },
-          body: JSON.stringify({
-            action: actionName,
-            data: payloadData
-          })
-        });
-
-        const responseText = await response.text();
-
-        try {
-          return JSON.parse(responseText);
-        } catch (parseError) {
-          if (responseText.includes("Ganesa Analytics") && retries > 0) {
-            console.warn("Browser keliru memproses redirect (POST jadi GET). Retrying...", retries);
-            await new Promise(resolve => setTimeout(resolve, 800));
-            return callGAS(actionName, payloadData, retries - 1);
-          }
-          throw new Error("Format data dari server tidak valid.");
-        }
-      } catch (networkError) {
-        if (retries > 0) {
-          console.warn("Koneksi terputus. Retrying...", retries);
-          await new Promise(resolve => setTimeout(resolve, 800));
-          return callGAS(actionName, payloadData, retries - 1);
-        }
-        throw networkError;
-      }
+    // FUNGSI JEMBATAN (FETCH API) YANG DISEMPURNAKAN AGAR BEBAS CORS & REDIRECT ERROR
+    async function callGAS(actionName, payloadData = {}) {
+      const response = await fetch(GAS_WEBAPP_URL, {
+        method: "POST",
+        redirect: "follow",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8", // Mencegah blokir CORS di GitHub Pages
+        },
+        body: JSON.stringify({
+          action: actionName,
+          data: payloadData
+        })
+      });
+      return await response.json();
     }
 
     let sessionSekolah = ""; 
@@ -1150,14 +1145,6 @@
     let allRows = []; let colIndices = {};
     google.charts.load('current', {'packages':['corechart']});
 
-    // MEMASTIKAN INSTANCE GRAFIK LAMA DIBERSIHKAN SEBELUM MENGGAMBAR BARU (MENCEGAH MEMORY LEAK)
-    function clearChart(elementId) {
-      const container = document.getElementById(elementId);
-      if (container) {
-        container.innerHTML = '';
-      }
-    }
-
     function getChartOptions(type, isLight = true) {
       let textColor = isLight ? '#334155' : '#d1d5db';
       let axisColor = isLight ? '#64748b' : '#8a94a6';
@@ -1261,19 +1248,6 @@
       google.charts.setOnLoadCallback(updateDashboard);
     }
 
-    // MENGOPTIMALKAN APPEND SELECT2 DENGAN DOCUMENT FRAGMENT AGAR LEBIH RINGAN
-    function populateDropdown(elementId, setList, defaultText) {
-      const select = document.getElementById(elementId);
-      if (!select) return;
-      select.innerHTML = '';
-      const fragment = document.createDocumentFragment();
-      fragment.appendChild(new Option(defaultText, ""));
-      
-      const sortedList = Array.from(setList).filter(v => v && v !== "-" && v !== "").sort();
-      sortedList.forEach(item => { fragment.appendChild(new Option(item, item)); });
-      select.appendChild(fragment);
-    }
-
     function updateDropdowns(source) {
       let fSekolah = $('#filter-sekolah').val();
       let fKelas = $('#filter-kelas').val();
@@ -1291,8 +1265,8 @@
           if (isVal(r[colIndices.kolomKelas])) newKelas.add(String(r[colIndices.kolomKelas]).trim());
           if (isVal(r[colIndices.kolomNama])) newNama.add(String(r[colIndices.kolomNama]).trim());
         });
-        populateDropdown('filter-kelas', newKelas, "-- Semua " + sessionKelasLabel + " --");
-        populateDropdown('filter-nama', newNama, "-- Semua Nama --");
+        $('#filter-kelas').empty(); populateDropdown('filter-kelas', newKelas, "-- Semua " + sessionKelasLabel + " --");
+        $('#filter-nama').empty(); populateDropdown('filter-nama', newNama, "-- Semua Nama --");
         
         $('#filter-kelas').select2({ placeholder: "-- Semua " + sessionKelasLabel + " --", allowClear: false, width: '100%' });
         $('#filter-nama').select2({ placeholder: "-- Semua Nama --", allowClear: false, width: '100%' });
@@ -1307,10 +1281,16 @@
         const newNama = new Set();
         validRows.forEach(r => { if (isVal(r[colIndices.kolomNama])) newNama.add(String(r[colIndices.kolomNama]).trim()); });
         
-        populateDropdown('filter-nama', newNama, "-- Semua Nama --");
+        $('#filter-nama').empty(); populateDropdown('filter-nama', newNama, "-- Semua Nama --");
         $('#filter-nama').select2({ placeholder: "-- Semua Nama --", allowClear: false, width: '100%' });
         $('#filter-nama').val("").trigger('change.select2');
       }
+    }
+
+    function populateDropdown(elementId, setList, defaultText) {
+      const select = $('#' + elementId); select.empty(); select.append(new Option(defaultText, ""));
+      const sortedList = Array.from(setList).filter(v => v && v !== "-" && v !== "").sort();
+      sortedList.forEach(item => { select.append(new Option(item, item)); });
     }
 
     function updateDashboard() {
@@ -1488,7 +1468,6 @@
           };
           
           function renderIndivDonutChart(frequencyObj, elementId, colorPalette, isLight = false) { 
-            clearChart(elementId);
             if(!document.getElementById(elementId)) return; 
             const dataArray = [['Kategori', 'Persentase']]; 
             for (let key in frequencyObj) { 
@@ -1692,7 +1671,6 @@
     };
 
     function renderSingleColumnChart(frequencyObj, elementId, colorHex, xLabel, prefix, menuId) { 
-      clearChart(elementId);
       if(!document.getElementById(elementId)) return; 
       const dataArray = [[xLabel, 'Jumlah', { role: 'style' }]]; 
       const sortedKeys = Object.keys(frequencyObj).sort((a,b) => frequencyObj[b] - frequencyObj[a]);
@@ -1724,7 +1702,6 @@
     }
     
     function renderGroupedColumnChart(dataArray, elementId, colorPalette) { 
-      clearChart(elementId);
       if(!document.getElementById(elementId)) return; 
       const chart = new google.visualization.ColumnChart(document.getElementById(elementId));
       let opts = getChartOptions('grouped', true); opts.colors = colorPalette;
@@ -1732,7 +1709,6 @@
     }
     
     function renderDonutChart(frequencyObj, elementId, colorPalette, prefix, menuId) { 
-      clearChart(elementId);
       if(!document.getElementById(elementId)) return; 
       const dataArray = [['Kategori', 'Jumlah']]; 
       const keys = [];
@@ -1790,7 +1766,6 @@
     function renderReportGayaBelajar(filteredRows, dataGaya) { renderDonutChart(dataGaya, 'chart_gaya_detail', ['#3b82f6', '#ec4899', '#06b6d4'], 'gaya', 'menu-gaya'); const summaryTableBody = document.querySelector('#summary-gaya-table tbody'); if(!summaryTableBody) return; let shtml = []; Object.keys(dataGaya).sort((a,b) => dataGaya[b] - dataGaya[a]).forEach(gaya => { shtml.push(`<tr><td class="text-start">${gaya}</td><td class="cell-score">${dataGaya[gaya]}</td></tr>`); }); summaryTableBody.innerHTML = shtml.join(''); const detailTableBody = document.querySelector('#detail-gaya-table tbody'); let dhtml = []; filteredRows.forEach(row => { let nama = colIndices.kolomNama !== undefined ? row[colIndices.kolomNama] : '-'; let jk = colIndices.kolomGender !== undefined ? row[colIndices.kolomGender] : '-'; let kelas = colIndices.kolomKelas !== undefined ? row[colIndices.kolomKelas] : '-'; let tipe = colIndices.kolomGayaBelajar !== undefined ? row[colIndices.kolomGayaBelajar] : '-'; const getCell = (colKey, bgColor) => { let val = colIndices[colKey] !== undefined ? row[colIndices[colKey]] : '-'; let colorStyle = isVal(val) ? `background-color: ${bgColor};` : ''; return `<td class="cell-score" style="${colorStyle}">${val}</td>`; }; if (isVal(tipe)) dhtml.push(`<tr data-category="${tipe}"><td class="text-start" style="white-space:nowrap;">${nama}</td><td>${String(jk).charAt(0).toUpperCase()}</td><td>${kelas}</td>${getCell('kolomVis', '#f1f5f9')}${getCell('kolomAud', '#f1f5f9')}${getCell('kolomKines', '#f1f5f9')}<td style="font-weight:bold; color:#0d9488;">${tipe}</td></tr>`); }); detailTableBody.innerHTML = dhtml.join(''); }
 
     function renderIndivColumnChart(dataPairs, elementId, colorHex, isLight = false) {
-      clearChart(elementId);
       if(!document.getElementById(elementId)) return;
       const dataArray = [['Kategori', 'Nilai', { role: 'style' }]];
       dataPairs.forEach(pair => { dataArray.push([pair[0], pair[1], `color: ${colorHex}`]); });
@@ -1800,13 +1775,140 @@
     }
     
     function renderIndivGroupedChart(dataArray, elementId, colorPalette, isLight = false) {
-      clearChart(elementId);
       if(!document.getElementById(elementId)) return;
       const chart = new google.visualization.ColumnChart(document.getElementById(elementId));
       let opts = getChartOptions('grouped', isLight); opts.colors = colorPalette; opts.chartArea = { left: '8%', width: '90%', height: '55%', top: 35 };
       setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
     }
 
+    // 🔥 OPTIMALISASI RESIZE DEBOUNCE (Mencegah Lag / Hang Saat Resize di HP & Desktop)
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        if (allRows && allRows.length > 0 && document.visibilityState === 'visible') {
+          updateDashboard();
+        }
+      }, 300);
+    });
+    document.addEventListener("visibilitychange", function() { if (document.visibilityState === 'visible' && allRows && allRows.length > 0) { window.dispatchEvent(new Event('resize')); } });
+
+    // 🔥 FUNGSI UPLOAD EXCEL (KHUSUS SUPER ADMIN) 🔥
+    function prosesUploadExcel() {
+      const fileInput = document.getElementById('input-excel-file');
+      const mode = document.getElementById('select-upload-mode').value;
+      const statusEl = document.getElementById('upload-status');
+      const btnProses = document.getElementById('btn-proses-upload');
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        statusEl.innerHTML = "<span style='color: #ff4d4d;'>Pilih file Excel terlebih dahulu!</span>";
+        statusEl.style.display = 'block';
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      statusEl.innerHTML = "<span style='color: #00bcd4;'>⏳ Membaca file Excel di browser...</span>";
+      statusEl.style.display = 'block';
+      btnProses.disabled = true;
+
+      reader.onload = function(e) {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+          if (jsonData.length <= 1) {
+            throw new Error("File Excel kosong atau hanya berisi judul kolom!");
+          }
+
+          const dataRows = jsonData.slice(1).filter(row => row.length > 0);
+          statusEl.innerHTML = "<span style='color: #f59e0b;'>🚀 Mengirim " + dataRows.length + " data ke database...</span>";
+
+          callGAS("uploadDataSiswa", { rowsData: dataRows, mode: mode })
+            .then(function(res) {
+              btnProses.disabled = false;
+              if (res.success) {
+                statusEl.innerHTML = "<span style='color: #10b981;'>✔ " + res.message + "</span>";
+                alert(res.message);
+                
+                const modalEl = document.getElementById('modalUploadExcel');
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+                fileInput.value = '';
+                statusEl.style.display = 'none';
+
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('main-content').style.display = 'none';
+                
+                callGAS("getSchoolData", { namaSekolah: sessionSekolah })
+                  .then(initDashboard);
+              } else {
+                statusEl.innerHTML = "<span style='color: #ff4d4d;'>✖ " + res.message + "</span>";
+              }
+            })
+            .catch(function(err) {
+              btnProses.disabled = false;
+              statusEl.innerHTML = "<span style='color: #ff4d4d;'>✖ Error: " + err.message + "</span>";
+            });
+
+        } catch (err) {
+          btnProses.disabled = false;
+          statusEl.innerHTML = "<span style='color: #ff4d4d;'>✖ Error: " + err.message + "</span>";
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+
+    // 🔥 FUNGSI SUBMIT CREATE USER (BUAT AKUN BARU) 🔥
+    function submitNewUser() {
+      const email = document.getElementById('new-email').value;
+      const password = document.getElementById('new-password').value;
+      const namaSekolah = document.getElementById('new-namasekolah').value;
+      const urlLogo = document.getElementById('new-urllogo').value;
+      const istPelajar = document.getElementById('new-istpelajar').value;
+      const istKelas = document.getElementById('new-istkelas').value;
+      const statusEl = document.getElementById('create-user-status');
+
+      if (!email || !password || !namaSekolah) {
+        statusEl.innerHTML = "<span style='color: #ef4444;'>Email, Password, dan Nama Sekolah wajib diisi!</span>";
+        statusEl.style.display = 'block';
+        return;
+      }
+
+      statusEl.innerHTML = "<span style='color: #0d9488;'>⏳ Menyimpan akun baru...</span>";
+      statusEl.style.display = 'block';
+
+      const userData = { email, password, namaSekolah, urlLogo, istPelajar, istKelas };
+
+      callGAS("createUserAccount", { userData: userData })
+        .then(function(res) {
+          if (res.success) {
+            statusEl.innerHTML = "<span style='color: #10b981;'>✔ " + res.message + "</span>";
+            alert(res.message);
+
+            document.getElementById('new-email').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('new-namasekolah').value = '';
+            document.getElementById('new-urllogo').value = '';
+            
+            const modalEl = document.getElementById('modalCreateUser');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+            statusEl.style.display = 'none';
+          } else {
+            statusEl.innerHTML = "<span style='color: #ef4444;'>✖ " + res.message + "</span>";
+          }
+        })
+        .catch(function(err) {
+          statusEl.innerHTML = "<span style='color: #ef4444;'>✖ Error: " + err.message + "</span>";
+        });
+    }
   </script>
 </body>
 </html>
