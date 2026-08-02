@@ -23,7 +23,7 @@
   <style>
     /* =======================================================
        🔥 TEMA UTAMA: LIGHT THEME (BERSIH & PROFESIONAL)
-       ======================================================= */
+    ======================================================= */
     body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
     .app-wrapper { display: flex; width: 100%; height: 100vh; overflow: hidden; }
     
@@ -107,14 +107,29 @@
 
     #loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.95); padding: 30px 50px; border-radius: 12px; border: 1px solid #e2e8f0; z-index: 2000; text-align: center; display: none; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);}
     
+    /* =======================================================
+       🔥 PERBAIKAN SELECT2: TEKS JELAS DAN DROPDOWN WARNA TOSCA
+    ======================================================= */
     .select2-container--default .select2-selection--single { background-color: #ffffff !important; border: 1px solid #cbd5e1 !important; border-radius: 8px !important; height: 40px !important; outline: none; }
     .select2-container--default .select2-selection--single .select2-selection__rendered { color: #1e293b !important; line-height: 38px !important; padding-left: 12px !important; }
     .select2-container--default .select2-selection--single .select2-selection__arrow { height: 38px !important; }
     .select2-dropdown { background-color: #ffffff !important; border: 1px solid #cbd5e1 !important; border-radius: 8px !important; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
     .select2-search--dropdown .select2-search__field { background-color: #f8fafc !important; color: #1e293b !important; border: 1px solid #cbd5e1 !important; border-radius: 6px; outline: none; }
     .select2-results__option { color: #334155 !important; }
-    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable { background-color: #0d9488 !important; color: white !important; }
-    .select2-container--default .select2-results__option[aria-selected=true] { background-color: #f1f5f9 !important; }
+    
+    /* PERBAIKAN UTAMA: Saat item di-hover / aktif / highlight, gunakan warna tosca dengan teks putih pekat! */
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
+    .select2-container--default .select2-results__option--highlighted[aria-selected],
+    .select2-container--default .select2-results__option--highlighted { 
+      background-color: #0d9488 !important; 
+      color: #ffffff !important; 
+    }
+    .select2-container--default .select2-results__option[aria-selected=true] { 
+      background-color: #ccfbf1 !important; 
+      color: #0f766e !important; 
+      font-weight: 600 !important; 
+    }
+    
     .select2-container--default .select2-selection--single .select2-selection__clear { color: #64748b !important; font-size: 20px !important; font-weight: bold !important; margin-right: 15px !important; margin-top: 2px !important; }
 
     .btn-reset-filter { background-color: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; font-size: 11px; font-weight: bold; border-radius: 4px; padding: 2px 8px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
@@ -124,7 +139,7 @@
 
     /* =======================================================
        🔥 TEMA LAPORAN INDIVIDU (DESAIN DOKUMEN / A4) 🔥
-       ======================================================= */
+    ======================================================= */
     .paper-report {
       background-color: #ffffff;
       color: #1a1c20;
@@ -477,22 +492,22 @@
             <div class="row g-2 align-items-end">
               <div class="col-md-4" id="box-filter-sekolah" style="display:none;">
                 <label class="score-title d-flex justify-content-between align-items-center mb-1">
-                    <span>Pilih Sekolah</span>
-                    <button class="btn-reset-filter" onclick="window.resetFilter('sekolah');">↺ Reset</button>
+                  <span>Pilih Sekolah</span>
+                  <button class="btn-reset-filter" onclick="window.resetFilter('sekolah');">↺ Reset</button>
                 </label>
                 <select id="filter-sekolah" style="width: 100%;"></select>
               </div>
               <div class="col-md-6" id="box-filter-kelas">
                 <label class="score-title d-flex justify-content-between align-items-center mb-1">
-                    <span>Pilih <span class="dyn-kelas">Grup</span></span>
-                    <button class="btn-reset-filter" onclick="window.resetFilter('kelas');">↺ Reset</button>
+                  <span>Pilih <span class="dyn-kelas">Grup</span></span>
+                  <button class="btn-reset-filter" onclick="window.resetFilter('kelas');">↺ Reset</button>
                 </label>
                 <select id="filter-kelas" style="width: 100%;"></select>
               </div>
               <div class="col-md-6" id="box-filter-nama">
                 <label class="score-title d-flex justify-content-between align-items-center mb-1">
-                    <span>Pilih Nama</span>
-                    <button class="btn-reset-filter" onclick="window.resetFilter('nama');">↺ Reset</button>
+                  <span>Pilih Nama</span>
+                  <button class="btn-reset-filter" onclick="window.resetFilter('nama');">↺ Reset</button>
                 </label>
                 <select id="filter-nama" style="width: 100%;"></select>
               </div>
@@ -522,108 +537,108 @@
 
           <!-- 🔥 2. TAB RINGKASAN INDIVIDU (KHUSUS 1 NAMA - DESAIN DOKUMEN A4) 🔥 -->
           <div class="tab-pane fade" id="pills-laporan-individu" role="tabpanel">
-             <div id="laporan-kosong" class="dashboard-card text-center py-5">
-                <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
-                <h4 style="color:#0f172a;">Pilih 1 Nama <span class="dyn-pelajar">Siswa</span></h4>
-                <p style="color:#64748b;">Gunakan filter "Pilih Nama" di atas untuk melihat Laporan Lengkap dan Deskripsi Individu.</p>
-             </div>
-             
-             <div id="laporan-isi" style="display:none; padding: 15px 0;">
-                <div class="paper-report">
-                    
-                    <!-- Header -->
-                    <div class="pr-header">
-                        <img src="" id="dyn-logo-report" alt="Logo">
-                        <div class="pr-header-text">
-                            <h1>GANESA.ID</h1>
-                            <p>Gerbang Asessment Indonesia<br>
-                            PT. AKARA NATURA NUSANTARA<br>
-                            Jalan Kanayakan Lama No 40a Bandung | Jln Sadang Serang No 18 Bandung</p>
-                        </div>
-                    </div>
-
-                    <!-- Biodata -->
-                    <div class="pr-biodata">
-                        <div>Grup</div><div>:</div><div id="indiv-sekolah-teks">-</div>
-                        <div>Kelas</div><div>:</div><div id="indiv-kelas-teks">-</div>
-                        <div>Nama</div><div>:</div><div id="indiv-nama-teks">-</div>
-                        <div>Jenis Kelamin</div><div>:</div><div id="indiv-jk-teks">-</div>
-                    </div>
-
-                    <!-- DISCLAIMER SECTION DENGAN LIST DINAMIS -->
-                    <div class="pr-section-title" style="border-bottom: none; margin-bottom: 5px;">DISCLAIMER</div>
-                    <div style="font-size: 13px; color: #374151; line-height: 1.6; margin-bottom: 40px;">
-                        <ul style="padding-left: 20px; list-style-type: disc;">
-                            <li style="margin-bottom: 8px;">Ganesa.id (Gerbang Assessment Indonesia) adalah sebuah sistem pemetaan gaya belajar dan bakat minat untuk memberikan pandangan data tentang potensi diri</li>
-                            <li style="margin-bottom: 8px;">Peruntukan penggunaan ganesa.id dalam lingkup internal pembinaan ganesa.id dalam pemetaan gaya belajar dan bakat minat</li>
-                            <li style="margin-bottom: 8px;">Ganesa.id di buat atas pemetaan assessment diagnostik non kognitif</li>
-                            <li style="margin-bottom: 8px;">Ganesa.id disusun oleh praktisi pendidikan dan konsultan psikolog</li>
-                            <li style="margin-bottom: 8px;">Hasil dari ganesa.id dapat di gunakan 6 bulan sampai 1 tahun setelah tes dilaksanakan. di luar dari rentang waktu tersebut perlu melakukan tes kembali karena hasil dapat berubah dengan beberapa faktor (Lingkungan, teman, kondisi keluarga dan lain lain)</li>
-                            <li style="margin-bottom: 8px;">Dengan menyetujui pernyataan di atas membebaskan ganesa.id dari tuntutan yang timbul karena penggunaan sistem diluar peruntukan yang di sepakati.</li>
-                            <li style="margin-bottom: 8px;">Dalam laporan ini akan menampilkan mengenai:
-                                <ol id="dynamic-disclaimer-list" style="padding-left: 20px; margin-top: 5px; list-style-type: decimal;">
-                                    <!-- JS will inject list items here -->
-                                </ol>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- 1. Kepribadian -->
-                    <div id="indiv-sect-kepribadian">
-                        <div class="pr-section-title">Kecenderungan Kepribadian</div>
-                        <div class="mbti-container" id="pr-mbti-bars"></div>
-                        <div class="pr-desc-box">
-                            <h4>Tipe Kepribadian: <span id="indiv-hasil-kepribadian" style="color:#8b5cf6;"></span></h4>
-                            <div id="desc-kepribadian"></div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Kecerdasan Majemuk -->
-                    <div id="indiv-sect-kecerdasan">
-                        <div class="pr-section-title">Kecenderungan Majemuk</div>
-                        <div class="mi-container" id="pr-mi-bars"></div>
-                        <div id="desc-kecerdasan" style="margin-top:15px; font-size:13px; color:#374151;"></div>
-                    </div>
-
-                    <!-- 3. Gaya Belajar -->
-                    <div id="indiv-sect-gaya">
-                        <div class="pr-section-title">Kecenderungan Gaya Belajar</div>
-                        <div id="chart_indiv_gaya" class="chart-div" style="min-height: 350px;"></div>
-                        <div id="desc-gaya" style="margin-top:5px; font-size:13px; color:#1a1c20; line-height: 1.6;"></div>
-                    </div>
-
-                    <!-- 4. RIASEC -->
-                    <div id="indiv-sect-riasec">
-                        <div class="pr-section-title">Kecenderungan Minat dan Bakat (RIASEC)</div>
-                        <div style="font-weight:bold; margin-bottom:10px; font-size:16px;">Tipe Final: <span id="indiv-hasil-riasec" style="color:#3b82f6;"></span></div>
-                        <div id="chart_indiv_riasec" class="chart-div" style="min-height: 250px;"></div>
-                        <div class="pr-desc-box" id="desc-riasec" style="margin-top:15px; border-left-color: #3b82f6;"></div>
-                    </div>
-                    
-                    <!-- 5. Analisis DISC -->
-                    <div id="indiv-sect-disc">
-                        <div class="pr-section-title">Analisis DISC</div>
-                        <div style="font-weight:bold; margin-bottom:10px; font-size:16px;">Kategori: <span id="indiv-hasil-disc" style="color:#f59e0b;"></span></div>
-                        <div id="desc-disc" class="row g-2 mb-3" style="display:none; margin: 0;"></div>
-                        <div id="chart_indiv_disc" class="chart-div" style="min-height: 250px;"></div>
-                    </div>
-                    
-                    <!-- 6. Ketahanan Diri (AQ) -->
-                    <div id="indiv-sect-aq">
-                        <div class="pr-section-title">Ketahanan Diri (AQ)</div>
-                        <div style="font-weight:bold; margin-bottom:10px; font-size:16px;">Kategori: <span id="indiv-hasil-aq" style="color:#ef4444;"></span></div>
-                        <div id="desc-aq" class="row g-2 mb-3" style="display:none; margin: 0;"></div>
-                        <div id="chart_indiv_aq" class="chart-div" style="min-height: 250px;"></div>
-                    </div>
-
-                    <!-- 7. Hasil Deskriptif Lainnya -->
-                    <div id="indiv-sect-lainnya" style="margin-top: 30px;">
-                        <div class="pr-section-title">Pemetaan Kesejahteraan & Kebiasaan</div>
-                        <table class="custom-table-light" id="indiv-tabel-lainnya" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);"><tbody></tbody></table>
-                    </div>
-
+            <div id="laporan-kosong" class="dashboard-card text-center py-5">
+              <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
+              <h4 style="color:#0f172a;">Pilih 1 Nama <span class="dyn-pelajar">Siswa</span></h4>
+              <p style="color:#64748b;">Gunakan filter "Pilih Nama" di atas untuk melihat Laporan Lengkap dan Deskripsi Individu.</p>
+            </div>
+            
+            <div id="laporan-isi" style="display:none; padding: 15px 0;">
+              <div class="paper-report">
+                
+                <!-- Header -->
+                <div class="pr-header">
+                  <img src="" id="dyn-logo-report" alt="Logo">
+                  <div class="pr-header-text">
+                    <h1>GANESA.ID</h1>
+                    <p>Gerbang Asessment Indonesia<br>
+                    PT. AKARA NATURA NUSANTARA<br>
+                    Jalan Kanayakan Lama No 40a Bandung | Jln Sadang Serang No 18 Bandung</p>
+                  </div>
                 </div>
-             </div>
+
+                <!-- Biodata -->
+                <div class="pr-biodata">
+                  <div>Grup</div><div>:</div><div id="indiv-sekolah-teks">-</div>
+                  <div>Kelas</div><div>:</div><div id="indiv-kelas-teks">-</div>
+                  <div>Nama</div><div>:</div><div id="indiv-nama-teks">-</div>
+                  <div>Jenis Kelamin</div><div>:</div><div id="indiv-jk-teks">-</div>
+                </div>
+
+                <!-- DISCLAIMER SECTION DENGAN LIST DINAMIS -->
+                <div class="pr-section-title" style="border-bottom: none; margin-bottom: 5px;">DISCLAIMER</div>
+                <div style="font-size: 13px; color: #374151; line-height: 1.6; margin-bottom: 40px;">
+                  <ul style="padding-left: 20px; list-style-type: disc;">
+                    <li style="margin-bottom: 8px;">Ganesa.id (Gerbang Assessment Indonesia) adalah sebuah sistem pemetaan gaya belajar dan bakat minat untuk memberikan pandangan data tentang potensi diri</li>
+                    <li style="margin-bottom: 8px;">Peruntukan penggunaan ganesa.id dalam lingkup internal pembinaan ganesa.id dalam pemetaan gaya belajar dan bakat minat</li>
+                    <li style="margin-bottom: 8px;">Ganesa.id di buat atas pemetaan assessment diagnostik non kognitif</li>
+                    <li style="margin-bottom: 8px;">Ganesa.id disusun oleh praktisi pendidikan dan konsultan psikolog</li>
+                    <li style="margin-bottom: 8px;">Hasil dari ganesa.id dapat di gunakan 6 bulan sampai 1 tahun setelah tes dilaksanakan. di luar dari rentang waktu tersebut perlu melakukan tes kembali karena hasil dapat berubah dengan beberapa faktor (Lingkungan, teman, kondisi keluarga dan lain lain)</li>
+                    <li style="margin-bottom: 8px;">Dengan menyetujui pernyataan di atas membebaskan ganesa.id dari tuntutan yang timbul karena penggunaan sistem diluar peruntukan yang di sepakati.</li>
+                    <li style="margin-bottom: 8px;">Dalam laporan ini akan menampilkan mengenai:
+                      <ol id="dynamic-disclaimer-list" style="padding-left: 20px; margin-top: 5px; list-style-type: decimal;">
+                        <!-- JS will inject list items here -->
+                      </ol>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- 1. Kepribadian -->
+                <div id="indiv-sect-kepribadian">
+                  <div class="pr-section-title">Kecenderungan Kepribadian</div>
+                  <div class="mbti-container" id="pr-mbti-bars"></div>
+                  <div class="pr-desc-box">
+                    <h4>Tipe Kepribadian: <span id="indiv-hasil-kepribadian" style="color:#8b5cf6;"></span></h4>
+                    <div id="desc-kepribadian"></div>
+                  </div>
+                </div>
+
+                <!-- 2. Kecerdasan Majemuk -->
+                <div id="indiv-sect-kecerdasan">
+                  <div class="pr-section-title">Kecenderungan Majemuk</div>
+                  <div class="mi-container" id="pr-mi-bars"></div>
+                  <div id="desc-kecerdasan" style="margin-top:15px; font-size:13px; color:#374151;"></div>
+                </div>
+
+                <!-- 3. Gaya Belajar -->
+                <div id="indiv-sect-gaya">
+                  <div class="pr-section-title">Kecenderungan Gaya Belajar</div>
+                  <div id="chart_indiv_gaya" class="chart-div" style="min-height: 350px;"></div>
+                  <div id="desc-gaya" style="margin-top:5px; font-size:13px; color:#1a1c20; line-height: 1.6;"></div>
+                </div>
+
+                <!-- 4. RIASEC -->
+                <div id="indiv-sect-riasec">
+                  <div class="pr-section-title">Kecenderungan Minat dan Bakat (RIASEC)</div>
+                  <div style="font-weight:bold; margin-bottom:10px; font-size:16px;">Tipe Final: <span id="indiv-hasil-riasec" style="color:#3b82f6;"></span></div>
+                  <div id="chart_indiv_riasec" class="chart-div" style="min-height: 250px;"></div>
+                  <div class="pr-desc-box" id="desc-riasec" style="margin-top:15px; border-left-color: #3b82f6;"></div>
+                </div>
+                
+                <!-- 5. Analisis DISC -->
+                <div id="indiv-sect-disc">
+                  <div class="pr-section-title">Analisis DISC</div>
+                  <div style="font-weight:bold; margin-bottom:10px; font-size:16px;">Kategori: <span id="indiv-hasil-disc" style="color:#f59e0b;"></span></div>
+                  <div id="desc-disc" class="row g-2 mb-3" style="display:none; margin: 0;"></div>
+                  <div id="chart_indiv_disc" class="chart-div" style="min-height: 250px;"></div>
+                </div>
+                
+                <!-- 6. Ketahanan Diri (AQ) -->
+                <div id="indiv-sect-aq">
+                  <div class="pr-section-title">Ketahanan Diri (AQ)</div>
+                  <div style="font-weight:bold; margin-bottom:10px; font-size:16px;">Kategori: <span id="indiv-hasil-aq" style="color:#ef4444;"></span></div>
+                  <div id="desc-aq" class="row g-2 mb-3" style="display:none; margin: 0;"></div>
+                  <div id="chart_indiv_aq" class="chart-div" style="min-height: 250px;"></div>
+                </div>
+
+                <!-- 7. Hasil Deskriptif Lainnya -->
+                <div id="indiv-sect-lainnya" style="margin-top: 30px;">
+                  <div class="pr-section-title">Pemetaan Kesejahteraan & Kebiasaan</div>
+                  <table class="custom-table-light" id="indiv-tabel-lainnya" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);"><tbody></tbody></table>
+                </div>
+
+              </div>
+            </div>
           </div>
 
           <!-- 🔥 3. SEMUA TAB DETAIL (DENGAN TOMBOL TAMPILKAN SEMUA) 🔥 -->
@@ -714,17 +729,17 @@
             const btnCreateUser = document.getElementById('btn-create-user');
 
             if (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG") {
-               document.getElementById('box-filter-sekolah').style.display = 'block';
-               document.getElementById('box-filter-nama').className = 'col-md-4';
-               document.getElementById('box-filter-kelas').className = 'col-md-4';
-               if (btnUpload) btnUpload.style.display = 'flex';
-               if (btnCreateUser) btnCreateUser.style.display = 'flex';
+              document.getElementById('box-filter-sekolah').style.display = 'block';
+              document.getElementById('box-filter-nama').className = 'col-md-4';
+              document.getElementById('box-filter-kelas').className = 'col-md-4';
+              if (btnUpload) btnUpload.style.display = 'flex';
+              if (btnCreateUser) btnCreateUser.style.display = 'flex';
             } else {
-               document.getElementById('box-filter-sekolah').style.display = 'none';
-               document.getElementById('box-filter-nama').className = 'col-md-6';
-               document.getElementById('box-filter-kelas').className = 'col-md-6';
-               if (btnUpload) btnUpload.style.display = 'none';
-               if (btnCreateUser) btnCreateUser.style.display = 'none';
+              document.getElementById('box-filter-sekolah').style.display = 'none';
+              document.getElementById('box-filter-nama').className = 'col-md-6';
+              document.getElementById('box-filter-kelas').className = 'col-md-6';
+              if (btnUpload) btnUpload.style.display = 'none';
+              if (btnCreateUser) btnCreateUser.style.display = 'none';
             }
 
             document.getElementById('login-screen').style.display = 'none';
@@ -761,16 +776,16 @@
     }
 
     window.resetAllAndGoHome = function() {
-        if ($('#filter-nama').val()) {
-            $('#filter-nama').val("").trigger('change');
-        }
-        navTo('menu-ringkasan');
+      if ($('#filter-nama').val()) {
+        $('#filter-nama').val("").trigger('change');
+      }
+      navTo('menu-ringkasan');
     };
 
     window.resetFilter = function(type) {
-        if (type === 'sekolah') { $('#filter-sekolah').val("").trigger('change'); } 
-        else if (type === 'kelas') { $('#filter-kelas').val("").trigger('change'); } 
-        else if (type === 'nama') { $('#filter-nama').val("").trigger('change'); }
+      if (type === 'sekolah') { $('#filter-sekolah').val("").trigger('change'); } 
+      else if (type === 'kelas') { $('#filter-kelas').val("").trigger('change'); } 
+      else if (type === 'nama') { $('#filter-nama').val("").trigger('change'); }
     };
 
     function navTo(menuId) {
@@ -799,9 +814,9 @@
           document.getElementById('sidebar').classList.remove('open');
           
           if(this.id === 'menu-ringkasan' || this.id === 'menu-laporan-individu') {
-              document.getElementById('btn-back').style.display = 'none';
+            document.getElementById('btn-back').style.display = 'none';
           } else {
-              document.getElementById('btn-back').style.display = 'flex';
+            document.getElementById('btn-back').style.display = 'flex';
           }
           setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 310);
         });
@@ -813,7 +828,7 @@
       kolomNama: "Nama", 
       kolomKelas: "Kelas", 
       kolomGender: "Jenis Kelamin", 
-      
+
       kolomKepribadian: "Tipe Kepribadian", 
       kolomKecerdasanMajemuk: "Profil Kecerdasan", 
       kolomGayaBelajar: "Profil Gaya Belajar",
@@ -830,7 +845,7 @@
       
       kolomTarafKecerdasan: "Taraf Kecerdasan CFIT", 
       kolomTipeKecerdasan: "Kategori CFIT", 
-      
+
       kolomKetahananDiri: "Kategori AQ",
       kolomCamper: "Camper AQ", kolomClimber: "Climber AQ", kolomQuitter: "Quitter AQ",
       
@@ -910,25 +925,25 @@
       };
 
       if (type === 'single') {
-          options.legend = 'none';
-          options.chartArea = { left: '8%', width: '90%', height: '70%', top: 30 };
+        options.legend = 'none';
+        options.chartArea = { left: '8%', width: '90%', height: '70%', top: 30 };
       } else if (type === 'grouped') {
-          options.chartArea = { left: '8%', width: '90%', height: '65%', top: 40 };
+        options.chartArea = { left: '8%', width: '90%', height: '65%', top: 40 };
       } else if (type === 'donut') {
-          options.pieHole = 0.35;
-          options.pieSliceBorderColor = isLight ? '#ffffff' : '#22252a';
-          options.pieSliceText = 'value';
-          options.pieSliceTextStyle = { fontSize: 14, bold: true, color: '#ffffff' };
-          options.legend = { textStyle: { color: textColor, fontSize: 13 }, position: 'right', alignment: 'center' };
-          options.chartArea = { left: '5%', width: '60%', height: '85%', top: 20 };
+        options.pieHole = 0.35;
+        options.pieSliceBorderColor = isLight ? '#ffffff' : '#22252a';
+        options.pieSliceText = 'value';
+        options.pieSliceTextStyle = { fontSize: 14, bold: true, color: '#ffffff' };
+        options.legend = { textStyle: { color: textColor, fontSize: 13 }, position: 'right', alignment: 'center' };
+        options.chartArea = { left: '5%', width: '60%', height: '85%', top: 20 };
       }
       return options;
     }
 
     const isVal = (val) => {
-        if (val === undefined || val === null) return false;
-        let v = String(val).trim().toLowerCase();
-        return (v !== "" && v !== "-" && v !== "undefined" && v !== "null" && v !== "#n/a" && v !== "false" && v !== "#ref!" && v !== "#value!");
+      if (val === undefined || val === null) return false;
+      let v = String(val).trim().toLowerCase();
+      return (v !== "" && v !== "-" && v !== "undefined" && v !== "null" && v !== "#n/a" && v !== "false" && v !== "#ref!" && v !== "#value!");
     };
 
     function initDashboard(jsonString) {
@@ -936,10 +951,10 @@
       const dataObj = JSON.parse(jsonString);
       allRows = dataObj.rows || [];
       if (!dataObj.headers || allRows.length === 0) {
-          alert("Belum ada data siswa untuk " + sessionSekolah);
-          document.getElementById('loading').style.display = 'none';
-          document.getElementById('login-screen').style.display = 'flex';
-          return;
+        alert("Belum ada data siswa untuk " + sessionSekolah);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        return;
       }
       
       dataObj.headers.forEach((header, index) => {
@@ -954,15 +969,15 @@
       const btnCreateUser = document.getElementById('btn-create-user');
 
       if (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG") {
-         const setSekolah = new Set();
-         allRows.forEach(row => { if (isVal(row[colIndices.kolomNamaSekolah])) setSekolah.add(String(row[colIndices.kolomNamaSekolah]).trim()); });
-         populateDropdown('filter-sekolah', setSekolah, "-- Semua Sekolah --");
-         $('#filter-sekolah').select2({ placeholder: "-- Semua Sekolah --", allowClear: false, width: '100%' });
-         if (btnUpload) btnUpload.style.display = 'flex';
-         if (btnCreateUser) btnCreateUser.style.display = 'flex';
+        const setSekolah = new Set();
+        allRows.forEach(row => { if (isVal(row[colIndices.kolomNamaSekolah])) setSekolah.add(String(row[colIndices.kolomNamaSekolah]).trim()); });
+        populateDropdown('filter-sekolah', setSekolah, "-- Semua Sekolah --");
+        $('#filter-sekolah').select2({ placeholder: "-- Semua Sekolah --", allowClear: false, width: '100%' });
+        if (btnUpload) btnUpload.style.display = 'flex';
+        if (btnCreateUser) btnCreateUser.style.display = 'flex';
       } else {
-         if (btnUpload) btnUpload.style.display = 'none';
-         if (btnCreateUser) btnCreateUser.style.display = 'none';
+        if (btnUpload) btnUpload.style.display = 'none';
+        if (btnCreateUser) btnCreateUser.style.display = 'none';
       }
 
       let isUpdating = false;
@@ -982,39 +997,39 @@
     }
 
     function updateDropdowns(source) {
-        let fSekolah = $('#filter-sekolah').val();
-        let fKelas = $('#filter-kelas').val();
-        if (sessionSekolah.toUpperCase() !== "AKTARA_PSIKOLOG") fSekolah = sessionSekolah;
+      let fSekolah = $('#filter-sekolah').val();
+      let fKelas = $('#filter-kelas').val();
+      if (sessionSekolah.toUpperCase() !== "AKTARA_PSIKOLOG") fSekolah = sessionSekolah;
 
-        let validRows = allRows;
-        if (fSekolah) validRows = validRows.filter(r => String(r[colIndices.kolomNamaSekolah]).trim() === fSekolah);
+      let validRows = allRows;
+      if (fSekolah) validRows = validRows.filter(r => String(r[colIndices.kolomNamaSekolah]).trim() === fSekolah);
+      
+      if (source === 'sekolah' || source === 'init') {
+        const newKelas = new Set(); const newNama = new Set();
+        validRows.forEach(r => {
+          if (isVal(r[colIndices.kolomKelas])) newKelas.add(String(r[colIndices.kolomKelas]).trim());
+          if (isVal(r[colIndices.kolomNama])) newNama.add(String(r[colIndices.kolomNama]).trim());
+        });
+        $('#filter-kelas').empty(); populateDropdown('filter-kelas', newKelas, "-- Semua " + sessionKelasLabel + " --");
+        $('#filter-nama').empty(); populateDropdown('filter-nama', newNama, "-- Semua Nama --");
         
-        if (source === 'sekolah' || source === 'init') {
-            const newKelas = new Set(); const newNama = new Set();
-            validRows.forEach(r => {
-                if (isVal(r[colIndices.kolomKelas])) newKelas.add(String(r[colIndices.kolomKelas]).trim());
-                if (isVal(r[colIndices.kolomNama])) newNama.add(String(r[colIndices.kolomNama]).trim());
-            });
-            $('#filter-kelas').empty(); populateDropdown('filter-kelas', newKelas, "-- Semua " + sessionKelasLabel + " --");
-            $('#filter-nama').empty(); populateDropdown('filter-nama', newNama, "-- Semua Nama --");
-            
-            $('#filter-kelas').select2({ placeholder: "-- Semua " + sessionKelasLabel + " --", allowClear: false, width: '100%' });
-            $('#filter-nama').select2({ placeholder: "-- Semua Nama --", allowClear: false, width: '100%' });
-            
-            if (source !== 'init') {
-                $('#filter-kelas').val("").trigger('change.select2');
-                $('#filter-nama').val("").trigger('change.select2');
-            }
-        } 
-        else if (source === 'kelas') {
-            if (fKelas) validRows = validRows.filter(r => String(r[colIndices.kolomKelas]).trim() === fKelas);
-            const newNama = new Set();
-            validRows.forEach(r => { if (isVal(r[colIndices.kolomNama])) newNama.add(String(r[colIndices.kolomNama]).trim()); });
-            
-            $('#filter-nama').empty(); populateDropdown('filter-nama', newNama, "-- Semua Nama --");
-            $('#filter-nama').select2({ placeholder: "-- Semua Nama --", allowClear: false, width: '100%' });
-            $('#filter-nama').val("").trigger('change.select2');
+        $('#filter-kelas').select2({ placeholder: "-- Semua " + sessionKelasLabel + " --", allowClear: false, width: '100%' });
+        $('#filter-nama').select2({ placeholder: "-- Semua Nama --", allowClear: false, width: '100%' });
+        
+        if (source !== 'init') {
+          $('#filter-kelas').val("").trigger('change.select2');
+          $('#filter-nama').val("").trigger('change.select2');
         }
+      } 
+      else if (source === 'kelas') {
+        if (fKelas) validRows = validRows.filter(r => String(r[colIndices.kolomKelas]).trim() === fKelas);
+        const newNama = new Set();
+        validRows.forEach(r => { if (isVal(r[colIndices.kolomNama])) newNama.add(String(r[colIndices.kolomNama]).trim()); });
+        
+        $('#filter-nama').empty(); populateDropdown('filter-nama', newNama, "-- Semua Nama --");
+        $('#filter-nama').select2({ placeholder: "-- Semua Nama --", allowClear: false, width: '100%' });
+        $('#filter-nama').val("").trigger('change.select2');
+      }
     }
 
     function populateDropdown(elementId, setList, defaultText) {
@@ -1031,7 +1046,7 @@
       let filteredRows = allRows;
       
       if (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG" && filterSekolah && colIndices.kolomNamaSekolah !== undefined) {
-         filteredRows = filteredRows.filter(r => String(r[colIndices.kolomNamaSekolah]).trim() === filterSekolah);
+        filteredRows = filteredRows.filter(r => String(r[colIndices.kolomNamaSekolah]).trim() === filterSekolah);
       }
       if (filterKelas && colIndices.kolomKelas !== undefined) filteredRows = filteredRows.filter(r => String(r[colIndices.kolomKelas]).trim() === filterKelas);
       if (filterNama && colIndices.kolomNama !== undefined) filteredRows = filteredRows.filter(r => String(r[colIndices.kolomNama]).trim() === filterNama);
@@ -1062,227 +1077,227 @@
       const toggleIndiv = (id, show) => { const el = document.getElementById(id); if (el) el.style.display = show ? '' : 'none'; };
 
       if (isNameFiltered && filteredRows.length > 0) {
-          const siswa = filteredRows[0];
-          document.getElementById('laporan-kosong').style.display = 'none';
-          document.getElementById('laporan-isi').style.display = 'block';
-          
-          document.getElementById('dyn-logo-report').src = document.getElementById('dyn-logo').src;
-          document.getElementById('indiv-sekolah-teks').innerText = sessionSekolah || "-";
-          document.getElementById('indiv-kelas-teks').innerText = siswa[colIndices.kolomKelas] || "-";
-          document.getElementById('indiv-nama-teks').innerText = siswa[colIndices.kolomNama] || "-";
-          document.getElementById('indiv-jk-teks').innerText = siswa[colIndices.kolomGender] || "-";
-          
-          const buildDesc = (title, text) => { 
-              if(!text) return ""; 
-              let str = String(text).trim(); 
-              if(!isVal(str)) return ""; 
-              str = str.replace(/\n/g, '<br>');
-              return `<div style="margin-bottom: 12px;"><h4 style="font-size:15px; font-weight:bold; color:#1a1c20; margin-bottom:5px;">${title}</h4><p style="font-size:13px; color:#374151; line-height:1.6; text-align:justify; margin:0;">${str}</p></div>`; 
+        const siswa = filteredRows[0];
+        document.getElementById('laporan-kosong').style.display = 'none';
+        document.getElementById('laporan-isi').style.display = 'block';
+        
+        document.getElementById('dyn-logo-report').src = document.getElementById('dyn-logo').src;
+        document.getElementById('indiv-sekolah-teks').innerText = sessionSekolah || "-";
+        document.getElementById('indiv-kelas-teks').innerText = siswa[colIndices.kolomKelas] || "-";
+        document.getElementById('indiv-nama-teks').innerText = siswa[colIndices.kolomNama] || "-";
+        document.getElementById('indiv-jk-teks').innerText = siswa[colIndices.kolomGender] || "-";
+        
+        const buildDesc = (title, text) => { 
+          if(!text) return ""; 
+          let str = String(text).trim(); 
+          if(!isVal(str)) return ""; 
+          str = str.replace(/\n/g, '<br>');
+          return `<div style="margin-bottom: 12px;"><h4 style="font-size:15px; font-weight:bold; color:#1a1c20; margin-bottom:5px;">${title}</h4><p style="font-size:13px; color:#374151; line-height:1.6; text-align:justify; margin:0;">${str}</p></div>`; 
+        };
+        const setDesc = (id, html) => { const el = document.getElementById(id); if(el) { if(html) { el.innerHTML = html; el.style.display = 'block'; } else { el.style.display = 'none'; } } };
+        const getVal = (col) => { 
+          let val = siswa[colIndices[col]]; 
+          if (!isVal(val)) return 0; 
+          if (typeof val === 'string') return parseFloat(val.replace(',', '.')) || 0; 
+          return parseFloat(val) || 0; 
+        };
+        const getValStr = (col) => { let val = siswa[colIndices[col]]; if (!isVal(val)) return "0"; return String(val).trim(); };
+
+        let hasKepri = isVal(siswa[colIndices.kolomKepribadian]);
+        let hasRiasec = isVal(siswa[colIndices.kolomTipeRIASEC]);
+        let hasKecer = isVal(siswa[colIndices.kolomKecerdasanMajemuk]);
+        let hasGaya = isVal(siswa[colIndices.kolomGayaBelajar]);
+        let hasDisc = isVal(siswa[colIndices.kolomDISC]);
+        let hasAq = isVal(siswa[colIndices.kolomKetahananDiri]);
+
+        let hasTaraf = isVal(siswa[colIndices.kolomTarafKecerdasan]);
+        let hasKesejahteraan = isVal(siswa[colIndices.kolomKemandirianKat]);
+        let hasKebiasaan = isVal(siswa[colIndices.kolomPRKat]);
+        let hasKeluarga = isVal(siswa[colIndices.kolomCaraMendidikKat]);
+        let hasPapi = isVal(siswa[colIndices.kolomPapi]);
+
+        let dList = "";
+        if (hasGaya) dList += '<li style="margin-bottom: 4px;">Pemetaan Gaya Belajar</li>';
+        if (hasTaraf) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecerdasan (CFIT)</li>';
+        if (hasKepri) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecenderungan Kepribadian</li>';
+        if (hasKebiasaan) dList += '<li style="margin-bottom: 4px;">Pemetaan Kebiasaan Belajar Di Rumah</li>';
+        if (hasKeluarga) dList += '<li style="margin-bottom: 4px;">Pemetaan Kondisi Keluarga</li>';
+        if (hasKesejahteraan) dList += '<li style="margin-bottom: 4px;">Pemetaan Kesejahteraan Psikologi</li>';
+        if (hasKecer) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecenderungan Majemuk</li>';
+        if (hasRiasec) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecenderungan Minat dan Bakat</li>';
+        if (hasDisc) dList += '<li style="margin-bottom: 4px;">Pemetaan Analisis DISC</li>';
+        if (hasAq) dList += '<li style="margin-bottom: 4px;">Pemetaan Ketahanan Diri (AQ)</li>';
+        if (hasPapi) dList += '<li style="margin-bottom: 4px;">Pemetaan Papi Kostick</li>';
+        
+        let elDisclaimerList = document.getElementById('dynamic-disclaimer-list');
+        if (elDisclaimerList) elDisclaimerList.innerHTML = dList;
+
+        toggleIndiv('indiv-sect-kepribadian', hasKepri);
+        toggleIndiv('indiv-sect-riasec', hasRiasec);
+        toggleIndiv('indiv-sect-kecerdasan', hasKecer);
+        toggleIndiv('indiv-sect-gaya', hasGaya);
+        toggleIndiv('indiv-sect-disc', hasDisc);
+        toggleIndiv('indiv-sect-aq', hasAq);
+
+        if (hasKepri) {
+          const buildMbtiBar = (lblL, valL, valR, lblR) => {
+            return `<div class="mbti-row">
+              <div class="mbti-label-left">${lblL}</div>
+              <div class="mbti-bar-wrapper">
+                <div class="mbti-left-bar" style="width: ${valL}%;">${valL}%</div>
+                <div class="mbti-right-bar" style="width: ${valR}%;">${valR}%</div>
+              </div>
+              <div class="mbti-label-right">${lblR}</div>
+            </div>`;
           };
-          const setDesc = (id, html) => { const el = document.getElementById(id); if(el) { if(html) { el.innerHTML = html; el.style.display = 'block'; } else { el.style.display = 'none'; } } };
-          const getVal = (col) => { 
-              let val = siswa[colIndices[col]]; 
-              if (!isVal(val)) return 0; 
-              if (typeof val === 'string') return parseFloat(val.replace(',', '.')) || 0; 
-              return parseFloat(val) || 0; 
+          
+          let mbtiHtml = buildMbtiBar('Introvert', getVal('kolomI'), getVal('kolomE'), 'Ekstrovert');
+          mbtiHtml += buildMbtiBar('Sensing', getVal('kolomS'), getVal('kolomN'), 'Intuition');
+          mbtiHtml += buildMbtiBar('Thinking', getVal('kolomT'), getVal('kolomF'), 'Feeling');
+          mbtiHtml += buildMbtiBar('Judging', getVal('kolomJ'), getVal('kolomP'), 'Perceiving');
+          
+          const elMbtiBars = document.getElementById('pr-mbti-bars');
+          if(elMbtiBars) elMbtiBars.innerHTML = mbtiHtml;
+          
+          document.getElementById('indiv-hasil-kepribadian').innerText = siswa[colIndices.kolomKepribadian];
+          setDesc('desc-kepribadian', buildDesc('Karakter Yang Kuat', siswa[colIndices.kolomKepriMenonjol]) + buildDesc('Butuh Pengembangan', siswa[colIndices.kolomKepriKembang]));
+        }
+        
+        const buildCleanDesc = (title, text) => { 
+          if(!text) return ""; 
+          let str = String(text).trim(); 
+          if(!isVal(str)) return ""; 
+          str = str.replace(/\n/g, '<br>');
+          return `<div style="margin-bottom: 15px;"><h4 style="font-size:15px; color:#1a1c20; margin-bottom:5px; font-weight:bold;">${title}</h4><p style="margin:0; font-size:13px; color:#374151; line-height: 1.6;">${str}</p></div>`; 
+        };
+
+        if (hasKecer) {
+          const buildMiBar = (label, val) => {
+            let v = Math.round(val);
+            return `<div class="mi-row">
+              <div class="mi-label-left">${label}</div>
+              <div class="mi-bar-wrapper">
+                <div class="mi-left-bar" style="width: ${v}%;"></div>
+                <div class="mi-label-right">${v}%</div>
+              </div>
+            </div>`;
           };
-          const getValStr = (col) => { let val = siswa[colIndices[col]]; if (!isVal(val)) return "0"; return String(val).trim(); };
-
-          let hasKepri = isVal(siswa[colIndices.kolomKepribadian]);
-          let hasRiasec = isVal(siswa[colIndices.kolomTipeRIASEC]);
-          let hasKecer = isVal(siswa[colIndices.kolomKecerdasanMajemuk]);
-          let hasGaya = isVal(siswa[colIndices.kolomGayaBelajar]);
-          let hasDisc = isVal(siswa[colIndices.kolomDISC]);
-          let hasAq = isVal(siswa[colIndices.kolomKetahananDiri]);
-
-          let hasTaraf = isVal(siswa[colIndices.kolomTarafKecerdasan]);
-          let hasKesejahteraan = isVal(siswa[colIndices.kolomKemandirianKat]);
-          let hasKebiasaan = isVal(siswa[colIndices.kolomPRKat]);
-          let hasKeluarga = isVal(siswa[colIndices.kolomCaraMendidikKat]);
-          let hasPapi = isVal(siswa[colIndices.kolomPapi]);
-
-          let dList = "";
-          if (hasGaya) dList += '<li style="margin-bottom: 4px;">Pemetaan Gaya Belajar</li>';
-          if (hasTaraf) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecerdasan (CFIT)</li>';
-          if (hasKepri) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecenderungan Kepribadian</li>';
-          if (hasKebiasaan) dList += '<li style="margin-bottom: 4px;">Pemetaan Kebiasaan Belajar Di Rumah</li>';
-          if (hasKeluarga) dList += '<li style="margin-bottom: 4px;">Pemetaan Kondisi Keluarga</li>';
-          if (hasKesejahteraan) dList += '<li style="margin-bottom: 4px;">Pemetaan Kesejahteraan Psikologi</li>';
-          if (hasKecer) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecenderungan Majemuk</li>';
-          if (hasRiasec) dList += '<li style="margin-bottom: 4px;">Pemetaan Kecenderungan Minat dan Bakat</li>';
-          if (hasDisc) dList += '<li style="margin-bottom: 4px;">Pemetaan Analisis DISC</li>';
-          if (hasAq) dList += '<li style="margin-bottom: 4px;">Pemetaan Ketahanan Diri (AQ)</li>';
-          if (hasPapi) dList += '<li style="margin-bottom: 4px;">Pemetaan Papi Kostick</li>';
           
-          let elDisclaimerList = document.getElementById('dynamic-disclaimer-list');
-          if (elDisclaimerList) elDisclaimerList.innerHTML = dList;
-
-          toggleIndiv('indiv-sect-kepribadian', hasKepri);
-          toggleIndiv('indiv-sect-riasec', hasRiasec);
-          toggleIndiv('indiv-sect-kecerdasan', hasKecer);
-          toggleIndiv('indiv-sect-gaya', hasGaya);
-          toggleIndiv('indiv-sect-disc', hasDisc);
-          toggleIndiv('indiv-sect-aq', hasAq);
-
-          if (hasKepri) {
-              const buildMbtiBar = (lblL, valL, valR, lblR) => {
-                  return `<div class="mbti-row">
-                      <div class="mbti-label-left">${lblL}</div>
-                      <div class="mbti-bar-wrapper">
-                          <div class="mbti-left-bar" style="width: ${valL}%;">${valL}%</div>
-                          <div class="mbti-right-bar" style="width: ${valR}%;">${valR}%</div>
-                      </div>
-                      <div class="mbti-label-right">${lblR}</div>
-                  </div>`;
-              };
-              
-              let mbtiHtml = buildMbtiBar('Introvert', getVal('kolomI'), getVal('kolomE'), 'Ekstrovert');
-              mbtiHtml += buildMbtiBar('Sensing', getVal('kolomS'), getVal('kolomN'), 'Intuition');
-              mbtiHtml += buildMbtiBar('Thinking', getVal('kolomT'), getVal('kolomF'), 'Feeling');
-              mbtiHtml += buildMbtiBar('Judging', getVal('kolomJ'), getVal('kolomP'), 'Perceiving');
-              
-              const elMbtiBars = document.getElementById('pr-mbti-bars');
-              if(elMbtiBars) elMbtiBars.innerHTML = mbtiHtml;
-              
-              document.getElementById('indiv-hasil-kepribadian').innerText = siswa[colIndices.kolomKepribadian];
-              setDesc('desc-kepribadian', buildDesc('Karakter Yang Kuat', siswa[colIndices.kolomKepriMenonjol]) + buildDesc('Butuh Pengembangan', siswa[colIndices.kolomKepriKembang]));
-          }
+          let miHtml = buildMiBar('Bodily-Kinesthetic', getVal('kolomKin'));
+          miHtml += buildMiBar('Interpersonal', getVal('kolomInter'));
+          miHtml += buildMiBar('Intrapersonal', getVal('kolomIntra'));
+          miHtml += buildMiBar('Linguistic', getVal('kolomLing'));
+          miHtml += buildMiBar('Logical-Mathematical', getVal('kolomMat'));
+          miHtml += buildMiBar('Musical', getVal('kolomMus'));
+          miHtml += buildMiBar('Naturalistic', getVal('kolomNat'));
+          miHtml += buildMiBar('Spatial', getVal('kolomSpa'));
           
-          const buildCleanDesc = (title, text) => { 
-              if(!text) return ""; 
-              let str = String(text).trim(); 
-              if(!isVal(str)) return ""; 
-              str = str.replace(/\n/g, '<br>');
-              return `<div style="margin-bottom: 15px;"><h4 style="font-size:15px; color:#1a1c20; margin-bottom:5px; font-weight:bold;">${title}</h4><p style="margin:0; font-size:13px; color:#374151; line-height: 1.6;">${str}</p></div>`; 
+          const elMiBars = document.getElementById('pr-mi-bars');
+          if(elMiBars) elMiBars.innerHTML = miHtml;
+
+          let descHtml = buildCleanDesc('Deskripsi:', siswa[colIndices.kolomKecerDesk]) + 
+            buildCleanDesc('Karakter yang Kuat:', siswa[colIndices.kolomKecerCiri]) + 
+            buildCleanDesc('Saran Ekstrakurikuler:', siswa[colIndices.kolomKecerSaran]);
+          
+          const elDescKecer = document.getElementById('desc-kecerdasan');
+          if(elDescKecer) { elDescKecer.innerHTML = descHtml; elDescKecer.style.display = 'block'; }
+        }
+
+        if (hasGaya) {
+          let gayaDataObj = {
+            'Visual': getVal('kolomVis'),
+            'Auditory': getVal('kolomAud'),
+            'Kinesthetic': getVal('kolomKines')
           };
-
-          if (hasKecer) {
-              const buildMiBar = (label, val) => {
-                  let v = Math.round(val);
-                  return `<div class="mi-row">
-                      <div class="mi-label-left">${label}</div>
-                      <div class="mi-bar-wrapper">
-                          <div class="mi-left-bar" style="width: ${v}%;"></div>
-                          <div class="mi-label-right">${v}%</div>
-                      </div>
-                  </div>`;
-              };
-              
-              let miHtml = buildMiBar('Bodily-Kinesthetic', getVal('kolomKin'));
-              miHtml += buildMiBar('Interpersonal', getVal('kolomInter'));
-              miHtml += buildMiBar('Intrapersonal', getVal('kolomIntra'));
-              miHtml += buildMiBar('Linguistic', getVal('kolomLing'));
-              miHtml += buildMiBar('Logical-Mathematical', getVal('kolomMat'));
-              miHtml += buildMiBar('Musical', getVal('kolomMus'));
-              miHtml += buildMiBar('Naturalistic', getVal('kolomNat'));
-              miHtml += buildMiBar('Spatial', getVal('kolomSpa'));
-              
-              const elMiBars = document.getElementById('pr-mi-bars');
-              if(elMiBars) elMiBars.innerHTML = miHtml;
-
-              let descHtml = buildCleanDesc('Deskripsi:', siswa[colIndices.kolomKecerDesk]) + 
-                             buildCleanDesc('Karakter yang Kuat:', siswa[colIndices.kolomKecerCiri]) + 
-                             buildCleanDesc('Saran Ekstrakurikuler:', siswa[colIndices.kolomKecerSaran]);
-              
-              const elDescKecer = document.getElementById('desc-kecerdasan');
-              if(elDescKecer) { elDescKecer.innerHTML = descHtml; elDescKecer.style.display = 'block'; }
-          }
-
-          if (hasGaya) {
-              let gayaDataObj = {
-                  'Visual': getVal('kolomVis'),
-                  'Auditory': getVal('kolomAud'),
-                  'Kinesthetic': getVal('kolomKines')
-              };
-              
-              function renderIndivDonutChart(frequencyObj, elementId, colorPalette, isLight = false) { 
-                  if(!document.getElementById(elementId)) return; 
-                  const dataArray = [['Kategori', 'Persentase']]; 
-                  for (let key in frequencyObj) { 
-                      let val = frequencyObj[key];
-                      dataArray.push([key, {v: val, f: Math.round(val) + '%'}]); 
-                  }
-                  if (dataArray.length === 1) dataArray.push(['Kosong', {v: 1, f: '0%'}]); 
-                  
-                  const chart = new google.visualization.PieChart(document.getElementById(elementId));
-                  let opts = getChartOptions('donut', isLight); 
-                  opts.colors = colorPalette;
-                  opts.chartArea = { left: '10%', width: '80%', height: '80%', top: 20 };
-                  opts.legend = { textStyle: { color: isLight ? '#374151' : '#d1d5db', fontSize: 13 }, position: 'bottom', alignment: 'center' };
-
-                  setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
-              }
-
-              renderIndivDonutChart(gayaDataObj, 'chart_indiv_gaya', ['#d95f02', '#8b5cf6', '#4a86e8'], true);
-              
-              let deskripsiGaya = String(siswa[colIndices.kolomGayaDesk] || '').trim().replace(/\n/g, '<br>');
-              let descGayaHtml = `<div style="margin-bottom: 15px;">
-                                      <h4 style="font-size:15px; font-weight:bold; color:#1a1c20; margin-bottom:5px;">Tipe Gaya Belajar:</h4>
-                                      <p style="margin:0; font-size:14px; color:#1a1c20; margin-bottom:5px;">${siswa[colIndices.kolomGayaBelajar]}</p>
-                                      <p style="margin:0; font-size:13px; color:#374151; line-height: 1.6;">${deskripsiGaya}</p>
-                                  </div>` + 
-                                 buildCleanDesc('Ciri-ciri Gaya Belajar:', siswa[colIndices.kolomGayaCiri]) + 
-                                 buildCleanDesc('Strategi Belajar Yang Bisa Diterapkan:', siswa[colIndices.kolomGayaSaran]);
-              
-              const elDescGaya = document.getElementById('desc-gaya');
-              if(elDescGaya) { elDescGaya.innerHTML = descGayaHtml; elDescGaya.style.display = 'block'; }
-          }
-
-          if (hasRiasec) {
-              document.getElementById('indiv-hasil-riasec').innerText = siswa[colIndices.kolomTipeRIASEC];
-              setDesc('desc-riasec', buildDesc('Deskripsi Singkat', siswa[colIndices.kolomRiasecDesk]) + buildDesc('Saran Jurusan Kampus', siswa[colIndices.kolomRiasecJurusan]) + buildDesc('Mata Pelajaran Pendukung', siswa[colIndices.kolomRiasecMapel]));
-              renderIndivColumnChart([['R', getVal('kolomReal')], ['I', getVal('kolomInv')], ['A', getVal('kolomArt')], ['S', getVal('kolomSoc')], ['E', getVal('kolomEnt')], ['C', getVal('kolomConv')]], 'chart_indiv_riasec', '#3b82f6', true);
-          }
-
-          if (hasDisc) {
-              document.getElementById('indiv-hasil-disc').innerText = siswa[colIndices.kolomDISC];
-              let kd = getVal('k_d'); let ki = getVal('k_i'); let ks = getVal('k_s'); let kc = getVal('k_c'); let pd = getVal('p_d'); let pi = getVal('p_i'); let ps = getVal('p_s'); let pc = getVal('p_c');
-              let hDisc = `<div class="col-md-6"><div class="h-100 d-flex flex-column justify-content-center" style="background-color:#f8fafc; border-radius:8px; border-left:4px solid #3b82f6; margin-bottom:0; padding:15px;"><span class="text-center mb-2" style="color:#3b82f6; font-weight:bold; font-size:14px;">Kepribadian Dasar (K)</span><div class="d-flex justify-content-between"><div class="disc-value-box-light"><strong>D</strong><span>${getValStr('k_d')}</span></div><div class="disc-value-box-light"><strong>I</strong><span>${getValStr('k_i')}</span></div><div class="disc-value-box-light"><strong>S</strong><span>${getValStr('k_s')}</span></div><div class="disc-value-box-light"><strong>C</strong><span>${getValStr('k_c')}</span></div></div></div></div><div class="col-md-6"><div class="h-100 d-flex flex-column justify-content-center" style="background-color:#f8fafc; border-radius:8px; border-left:4px solid #f59e0b; margin-bottom:0; padding:15px;"><span class="text-center mb-2" style="color:#f59e0b; font-weight:bold; font-size:14px;">Kepribadian Publik (P)</span><div class="d-flex justify-content-between"><div class="disc-value-box-light"><strong>D</strong><span>${getValStr('p_d')}</span></div><div class="disc-value-box-light"><strong>I</strong><span>${getValStr('p_i')}</span></div><div class="disc-value-box-light"><strong>S</strong><span>${getValStr('p_s')}</span></div><div class="disc-value-box-light"><strong>C</strong><span>${getValStr('p_c')}</span></div></div></div></div>`;
-              const elDisc = document.getElementById('desc-disc'); if(elDisc) { elDisc.innerHTML = hDisc; elDisc.style.display = 'flex'; }
-              renderIndivGroupedChart([['Kategori', 'Kepribadian Dasar (K)', 'Kepribadian Publik (P)'], ['D', kd, pd], ['I', ki, pi], ['S', ks, ps], ['C', kc, pc]], 'chart_indiv_disc', ['#3b82f6', '#f59e0b'], true);
-          }
-
-          if (hasAq) {
-              document.getElementById('indiv-hasil-aq').innerText = siswa[colIndices.kolomKetahananDiri];
-              let hAq = `<div class="col-12"><div class="h-100 d-flex flex-column justify-content-center" style="background-color:#f8fafc; border-radius:8px; border-left:4px solid #ef4444; margin-bottom:0; padding:15px;"><div class="d-flex justify-content-between"><div class="disc-value-box-light"><strong>Camper</strong><span>${getValStr('kolomCamper')}</span></div><div class="disc-value-box-light"><strong>Climber</strong><span>${getValStr('kolomClimber')}</span></div><div class="disc-value-box-light"><strong>Quitter</strong><span>${getValStr('kolomQuitter')}</span></div></div></div></div>`;
-              const elAq = document.getElementById('desc-aq'); if(elAq) { elAq.innerHTML = hAq; elAq.style.display = 'flex'; }
-              renderIndivColumnChart([['Camper', getVal('kolomCamper')], ['Climber', getVal('kolomClimber')], ['Quitter', getVal('kolomQuitter')]], 'chart_indiv_aq', '#ef4444', true);
-          }
           
-          let htmlLainnya = "";
-          if (isVal(siswa[colIndices.kolomTarafKecerdasan])) htmlLainnya += `<tr><td class="text-start" style="width:40%;"><strong>Taraf Kecerdasan (CFIT)</strong></td><td class="text-start">${siswa[colIndices.kolomTarafKecerdasan]} (${siswa[colIndices.kolomTipeKecerdasan] || '-'})</td></tr>`;
-          if (isVal(siswa[colIndices.kolomPapi])) htmlLainnya += `<tr><td class="text-start" style="width:40%;"><strong>Papi Kostick</strong></td><td class="text-start">${siswa[colIndices.kolomPapi]}</td></tr>`;
-          
-          let htmlExtra = "";
-          const addExtra = (title, katCol, skorCol) => { if(isVal(siswa[colIndices[katCol]])) htmlExtra += `<tr><td class="text-start"><strong>${title}</strong></td><td class="text-start">${siswa[colIndices[katCol]]} (Skor: ${siswa[colIndices[skorCol]] || '-'})</td></tr>`; };
-          
-          addExtra('Kemandirian', 'kolomKemandirianKat', 'kolomKemandirianSkor');
-          addExtra('Penguasaan Lingkungan', 'kolomPenguasaanKat', 'kolomPenguasaanSkor');
-          addExtra('Pertumbuhan Pribadi', 'kolomPertumbuhanKat', 'kolomPertumbuhanSkor');
-          addExtra('Hubungan Positif', 'kolomHubunganKat', 'kolomHubunganSkor');
-          addExtra('Tujuan Hidup', 'kolomTujuanKat', 'kolomTujuanSkor');
-          addExtra('Penerimaan Diri', 'kolomPenerimaanKat', 'kolomPenerimaanSkor');
-          addExtra('Pekerjaan Rumah & Tugas', 'kolomPRKat', 'kolomPRSkor');
-          addExtra('Alokasi Waktu', 'kolomWaktuKat', 'kolomWaktuSkor');
-          addExtra('Membaca & Mencatat', 'kolomMembacaKat', 'kolomMembacaSkor');
-          addExtra('Prosedur Periode Belajar', 'kolomProsedurKat', 'kolomProsedurSkor');
-          addExtra('Konsentrasi', 'kolomKonsentrasiKat', 'kolomKonsentrasiSkor');
-          addExtra('Cara Orang Tua Mendidik', 'kolomCaraMendidikKat', 'kolomCaraMendidikSkor');
-          addExtra('Relasi Anak & Keluarga', 'kolomRelasiKat', 'kolomRelasiSkor');
-          addExtra('Suasana Rumah', 'kolomSuasanaRumahKat', 'kolomSuasanaRumahSkor');
+          function renderIndivDonutChart(frequencyObj, elementId, colorPalette, isLight = false) { 
+            if(!document.getElementById(elementId)) return; 
+            const dataArray = [['Kategori', 'Persentase']]; 
+            for (let key in frequencyObj) { 
+              let val = frequencyObj[key];
+              dataArray.push([key, {v: val, f: Math.round(val) + '%'}]); 
+            }
+            if (dataArray.length === 1) dataArray.push(['Kosong', {v: 1, f: '0%'}]); 
 
-          if(htmlExtra !== "") htmlLainnya += `<tr><td class="text-start" colspan="2" style="background-color:#e5e7eb; color:#1a1c20; text-align:center;"><strong>Rincian Kesejahteraan & Lingkungan Belajar</strong></td></tr>` + htmlExtra;
+            const chart = new google.visualization.PieChart(document.getElementById(elementId));
+            let opts = getChartOptions('donut', isLight); 
+            opts.colors = colorPalette;
+            opts.chartArea = { left: '10%', width: '80%', height: '80%', top: 20 };
+            opts.legend = { textStyle: { color: isLight ? '#374151' : '#d1d5db', fontSize: 13 }, position: 'bottom', alignment: 'center' };
 
-          if (htmlLainnya !== "") {
-              toggleIndiv('indiv-sect-lainnya', true);
-              document.querySelector('#indiv-tabel-lainnya tbody').innerHTML = htmlLainnya;
-          } else {
-              toggleIndiv('indiv-sect-lainnya', false);
+            setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
           }
+
+          renderIndivDonutChart(gayaDataObj, 'chart_indiv_gaya', ['#d95f02', '#8b5cf6', '#4a86e8'], true);
           
+          let deskripsiGaya = String(siswa[colIndices.kolomGayaDesk] || '').trim().replace(/\n/g, '<br>');
+          let descGayaHtml = `<div style="margin-bottom: 15px;">
+            <h4 style="font-size:15px; font-weight:bold; color:#1a1c20; margin-bottom:5px;">Tipe Gaya Belajar:</h4>
+            <p style="margin:0; font-size:14px; color:#1a1c20; margin-bottom:5px;">${siswa[colIndices.kolomGayaBelajar]}</p>
+            <p style="margin:0; font-size:13px; color:#374151; line-height: 1.6;">${deskripsiGaya}</p>
+          </div>` + 
+          buildCleanDesc('Ciri-ciri Gaya Belajar:', siswa[colIndices.kolomGayaCiri]) + 
+          buildCleanDesc('Strategi Belajar Yang Bisa Diterapkan:', siswa[colIndices.kolomGayaSaran]);
+          
+          const elDescGaya = document.getElementById('desc-gaya');
+          if(elDescGaya) { elDescGaya.innerHTML = descGayaHtml; elDescGaya.style.display = 'block'; }
+        }
+
+        if (hasRiasec) {
+          document.getElementById('indiv-hasil-riasec').innerText = siswa[colIndices.kolomTipeRIASEC];
+          setDesc('desc-riasec', buildDesc('Deskripsi Singkat', siswa[colIndices.kolomRiasecDesk]) + buildDesc('Saran Jurusan Kampus', siswa[colIndices.kolomRiasecJurusan]) + buildDesc('Mata Pelajaran Pendukung', siswa[colIndices.kolomRiasecMapel]));
+          renderIndivColumnChart([['R', getVal('kolomReal')], ['I', getVal('kolomInv')], ['A', getVal('kolomArt')], ['S', getVal('kolomSoc')], ['E', getVal('kolomEnt')], ['C', getVal('kolomConv')]], 'chart_indiv_riasec', '#3b82f6', true);
+        }
+
+        if (hasDisc) {
+          document.getElementById('indiv-hasil-disc').innerText = siswa[colIndices.kolomDISC];
+          let kd = getVal('k_d'); let ki = getVal('k_i'); let ks = getVal('k_s'); let kc = getVal('k_c'); let pd = getVal('p_d'); let pi = getVal('p_i'); let ps = getVal('p_s'); let pc = getVal('p_c');
+          let hDisc = `<div class="col-md-6"><div class="h-100 d-flex flex-column justify-content-center" style="background-color:#f8fafc; border-radius:8px; border-left:4px solid #3b82f6; margin-bottom:0; padding:15px;"><span class="text-center mb-2" style="color:#3b82f6; font-weight:bold; font-size:14px;">Kepribadian Dasar (K)</span><div class="d-flex justify-content-between"><div class="disc-value-box-light"><strong>D</strong><span>${getValStr('k_d')}</span></div><div class="disc-value-box-light"><strong>I</strong><span>${getValStr('k_i')}</span></div><div class="disc-value-box-light"><strong>S</strong><span>${getValStr('k_s')}</span></div><div class="disc-value-box-light"><strong>C</strong><span>${getValStr('k_c')}</span></div></div></div></div><div class="col-md-6"><div class="h-100 d-flex flex-column justify-content-center" style="background-color:#f8fafc; border-radius:8px; border-left:4px solid #f59e0b; margin-bottom:0; padding:15px;"><span class="text-center mb-2" style="color:#f59e0b; font-weight:bold; font-size:14px;">Kepribadian Publik (P)</span><div class="d-flex justify-content-between"><div class="disc-value-box-light"><strong>D</strong><span>${getValStr('p_d')}</span></div><div class="disc-value-box-light"><strong>I</strong><span>${getValStr('p_i')}</span></div><div class="disc-value-box-light"><strong>S</strong><span>${getValStr('p_s')}</span></div><div class="disc-value-box-light"><strong>C</strong><span>${getValStr('p_c')}</span></div></div></div></div>`;
+          const elDisc = document.getElementById('desc-disc'); if(elDisc) { elDisc.innerHTML = hDisc; elDisc.style.display = 'flex'; }
+          renderIndivGroupedChart([['Kategori', 'Kepribadian Dasar (K)', 'Kepribadian Publik (P)'], ['D', kd, pd], ['I', ki, pi], ['S', ks, ps], ['C', kc, pc]], 'chart_indiv_disc', ['#3b82f6', '#f59e0b'], true);
+        }
+
+        if (hasAq) {
+          document.getElementById('indiv-hasil-aq').innerText = siswa[colIndices.kolomKetahananDiri];
+          let hAq = `<div class="col-12"><div class="h-100 d-flex flex-column justify-content-center" style="background-color:#f8fafc; border-radius:8px; border-left:4px solid #ef4444; margin-bottom:0; padding:15px;"><div class="d-flex justify-content-between"><div class="disc-value-box-light"><strong>Camper</strong><span>${getValStr('kolomCamper')}</span></div><div class="disc-value-box-light"><strong>Climber</strong><span>${getValStr('kolomClimber')}</span></div><div class="disc-value-box-light"><strong>Quitter</strong><span>${getValStr('kolomQuitter')}</span></div></div></div></div>`;
+          const elAq = document.getElementById('desc-aq'); if(elAq) { elAq.innerHTML = hAq; elAq.style.display = 'flex'; }
+          renderIndivColumnChart([['Camper', getVal('kolomCamper')], ['Climber', getVal('kolomClimber')], ['Quitter', getVal('kolomQuitter')]], 'chart_indiv_aq', '#ef4444', true);
+        }
+        
+        let htmlLainnya = "";
+        if (isVal(siswa[colIndices.kolomTarafKecerdasan])) htmlLainnya += `<tr><td class="text-start" style="width:40%;"><strong>Taraf Kecerdasan (CFIT)</strong></td><td class="text-start">${siswa[colIndices.kolomTarafKecerdasan]} (${siswa[colIndices.kolomTipeKecerdasan] || '-'})</td></tr>`;
+        if (isVal(siswa[colIndices.kolomPapi])) htmlLainnya += `<tr><td class="text-start" style="width:40%;"><strong>Papi Kostick</strong></td><td class="text-start">${siswa[colIndices.kolomPapi]}</td></tr>`;
+        
+        let htmlExtra = "";
+        const addExtra = (title, katCol, skorCol) => { if(isVal(siswa[colIndices[katCol]])) htmlExtra += `<tr><td class="text-start"><strong>${title}</strong></td><td class="text-start">${siswa[colIndices[katCol]]} (Skor: ${siswa[colIndices[skorCol]] || '-'})</td></tr>`; };
+        
+        addExtra('Kemandirian', 'kolomKemandirianKat', 'kolomKemandirianSkor');
+        addExtra('Penguasaan Lingkungan', 'kolomPenguasaanKat', 'kolomPenguasaanSkor');
+        addExtra('Pertumbuhan Pribadi', 'kolomPertumbuhanKat', 'kolomPertumbuhanSkor');
+        addExtra('Hubungan Positif', 'kolomHubunganKat', 'kolomHubunganSkor');
+        addExtra('Tujuan Hidup', 'kolomTujuanKat', 'kolomTujuanSkor');
+        addExtra('Penerimaan Diri', 'kolomPenerimaanKat', 'kolomPenerimaanSkor');
+        addExtra('Pekerjaan Rumah & Tugas', 'kolomPRKat', 'kolomPRSkor');
+        addExtra('Alokasi Waktu', 'kolomWaktuKat', 'kolomWaktuSkor');
+        addExtra('Membaca & Mencatat', 'kolomMembacaKat', 'kolomMembacaSkor');
+        addExtra('Prosedur Periode Belajar', 'kolomProsedurKat', 'kolomProsedurSkor');
+        addExtra('Konsentrasi', 'kolomKonsentrasiKat', 'kolomKonsentrasiSkor');
+        addExtra('Cara Orang Tua Mendidik', 'kolomCaraMendidikKat', 'kolomCaraMendidikSkor');
+        addExtra('Relasi Anak & Keluarga', 'kolomRelasiKat', 'kolomRelasiSkor');
+        addExtra('Suasana Rumah', 'kolomSuasanaRumahKat', 'kolomSuasanaRumahSkor');
+
+        if(htmlExtra !== "") htmlLainnya += `<tr><td class="text-start" colspan="2" style="background-color:#e5e7eb; color:#1a1c20; text-align:center;"><strong>Rincian Kesejahteraan & Lingkungan Belajar</strong></td></tr>` + htmlExtra;
+
+        if (htmlLainnya !== "") {
+          toggleIndiv('indiv-sect-lainnya', true);
+          document.querySelector('#indiv-tabel-lainnya tbody').innerHTML = htmlLainnya;
+        } else {
+          toggleIndiv('indiv-sect-lainnya', false);
+        }
+        
       } else {
-          document.getElementById('laporan-kosong').style.display = 'block';
-          document.getElementById('laporan-isi').style.display = 'none';
+        document.getElementById('laporan-kosong').style.display = 'block';
+        document.getElementById('laporan-isi').style.display = 'none';
       }
 
       // 🔥 AUTO-HIDE MENUS 🔥
@@ -1290,14 +1305,14 @@
       const toggleVisMenu = (id, show) => { const el = document.getElementById(id); if(el) el.style.display = show ? '' : 'none'; };
       
       const hasAnyReportData = hasData(counts.minat) || hasData(counts.kepribadian) || hasData(counts.kecerdasan) || hasData(counts.tipeKecerdasan) || hasData(counts.gayaBelajar) || hasData(counts.ketahananDiri) || hasData(counts.disc) || hasData(counts.papi) ||
-                               hasData(counts.kemandirian) || hasData(counts.penguasaan) || hasData(counts.pertumbuhan) || hasData(counts.hubungan) || hasData(counts.tujuan) || hasData(counts.penerimaan) ||
-                               hasData(counts.pr) || hasData(counts.waktu) || hasData(counts.membaca) || hasData(counts.prosedur) || hasData(counts.konsentrasi) ||
-                               hasData(counts.caraMendidik) || hasData(counts.relasi) || hasData(counts.suasanaRumah);
-                               
+        hasData(counts.kemandirian) || hasData(counts.penguasaan) || hasData(counts.pertumbuhan) || hasData(counts.hubungan) || hasData(counts.tujuan) || hasData(counts.penerimaan) ||
+        hasData(counts.pr) || hasData(counts.waktu) || hasData(counts.membaca) || hasData(counts.prosedur) || hasData(counts.konsentrasi) ||
+        hasData(counts.caraMendidik) || hasData(counts.relasi) || hasData(counts.suasanaRumah);
+        
       toggleVisMenu('wrap-report', hasAnyReportData);
       
       toggleVisMenu('menu-minatbakat', hasData(counts.minat)); toggleVisMenu('menu-kepribadian', hasData(counts.kepribadian)); toggleVisMenu('menu-kecerdasan', hasData(counts.kecerdasan)); toggleVisMenu('menu-profil_kecerdasan', hasData(counts.tipeKecerdasan)); toggleVisMenu('menu-gaya', hasData(counts.gayaBelajar)); toggleVisMenu('menu-ketahanan', hasData(counts.ketahananDiri)); toggleVisMenu('menu-disc', hasData(counts.disc)); toggleVisMenu('menu-papi', hasData(counts.papi)); 
-      
+
       toggleVisMenu('menu-kemandirian', hasData(counts.kemandirian)); toggleVisMenu('menu-penguasaan', hasData(counts.penguasaan)); toggleVisMenu('menu-pertumbuhan', hasData(counts.pertumbuhan)); toggleVisMenu('menu-hubungan', hasData(counts.hubungan)); toggleVisMenu('menu-tujuan', hasData(counts.tujuan)); toggleVisMenu('menu-penerimaan', hasData(counts.penerimaan));
       toggleVisMenu('menu-pr', hasData(counts.pr)); toggleVisMenu('menu-waktu', hasData(counts.waktu)); toggleVisMenu('menu-membaca', hasData(counts.membaca)); toggleVisMenu('menu-prosedur', hasData(counts.prosedur)); toggleVisMenu('menu-konsentrasi', hasData(counts.konsentrasi));
       toggleVisMenu('menu-cara_mendidik', hasData(counts.caraMendidik)); toggleVisMenu('menu-relasi', hasData(counts.relasi)); toggleVisMenu('menu-suasana_rumah', hasData(counts.suasanaRumah));
@@ -1315,7 +1330,7 @@
 
       const warnaRiasec = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899']; 
       const warnaTaraf = ['#06b6d4', '#f43f5e', '#eab308', '#22c55e', '#a855f7', '#f97316']; 
-      
+
       if(hasData(counts.minat)) renderDonutChart(counts.minat, 'chart_ringkasan_minat', warnaRiasec, 'minat', 'menu-minatbakat');
       if(hasData(counts.tipeKecerdasan)) renderDonutChart(counts.tipeKecerdasan, 'chart_ringkasan_profil_kecerdasan', warnaTaraf, 'profil_kecerdasan', 'menu-profil_kecerdasan');
 
@@ -1392,9 +1407,9 @@
 
     window.resetTable = function(prefix) {
       try {
-          $('#detail-' + prefix + '-table tbody tr').show();
-          if(window.globalCharts['mychart_chart_ringkasan_' + prefix]) window.globalCharts['mychart_chart_ringkasan_' + prefix].setSelection([]); 
-          if(window.globalCharts['mychart_chart_' + prefix + '_detail']) window.globalCharts['mychart_chart_' + prefix + '_detail'].setSelection([]); 
+        $('#detail-' + prefix + '-table tbody tr').show();
+        if(window.globalCharts['mychart_chart_ringkasan_' + prefix]) window.globalCharts['mychart_chart_ringkasan_' + prefix].setSelection([]); 
+        if(window.globalCharts['mychart_chart_' + prefix + '_detail']) window.globalCharts['mychart_chart_' + prefix + '_detail'].setSelection([]); 
       } catch (e) { console.log(e); }
     };
 
@@ -1404,27 +1419,27 @@
       const sortedKeys = Object.keys(frequencyObj).sort((a,b) => frequencyObj[b] - frequencyObj[a]);
       sortedKeys.forEach(key => dataArray.push([key, frequencyObj[key], `color: ${colorHex}`])); 
       if (dataArray.length === 1) dataArray.push(['Kosong', 0, `color: ${colorHex}`]); 
-      
+
       const chart = new google.visualization.ColumnChart(document.getElementById(elementId));
       if (prefix) window.globalCharts['mychart_' + elementId] = chart;
       
       if (prefix) {
-          google.visualization.events.addListener(chart, 'select', function() {
-              const sel = chart.getSelection();
-              const tbody = document.querySelector('#detail-' + prefix + '-table tbody');
-              
-              if (sel.length > 0 && sel[0].row !== null && sel[0].row !== undefined && tbody) {
-                  const category = sortedKeys[sel[0].row];
-                  if (elementId.includes('ringkasan') && menuId) navTo(menuId);
-                  
-                  $(tbody).find('tr').hide();
-                  $(tbody).find('tr').each(function() {
-                     if($(this).attr('data-category') === String(category)) $(this).fadeIn(200);
-                  });
-              } else if (tbody) {
-                  $(tbody).find('tr').fadeIn(200);
-              }
-          });
+        google.visualization.events.addListener(chart, 'select', function() {
+          const sel = chart.getSelection();
+          const tbody = document.querySelector('#detail-' + prefix + '-table tbody');
+          
+          if (sel.length > 0 && sel[0].row !== null && sel[0].row !== undefined && tbody) {
+            const category = sortedKeys[sel[0].row];
+            if (elementId.includes('ringkasan') && menuId) navTo(menuId);
+            
+            $(tbody).find('tr').hide();
+            $(tbody).find('tr').each(function() {
+              if($(this).attr('data-category') === String(category)) $(this).fadeIn(200);
+            });
+          } else if (tbody) {
+            $(tbody).find('tr').fadeIn(200);
+          }
+        });
       }
       setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), getChartOptions('single', true)); }, 50);
     }
@@ -1442,27 +1457,27 @@
       const keys = [];
       for (let key in frequencyObj) { dataArray.push([key, frequencyObj[key]]); keys.push(key); }
       if (dataArray.length === 1) dataArray.push(['Kosong', 1]); 
-      
+
       const chart = new google.visualization.PieChart(document.getElementById(elementId));
       if (prefix) window.globalCharts['mychart_' + elementId] = chart;
       
       if (prefix) {
-          google.visualization.events.addListener(chart, 'select', function() {
-              const sel = chart.getSelection();
-              const tbody = document.querySelector('#detail-' + prefix + '-table tbody');
-              
-              if (sel.length > 0 && sel[0].row !== null && sel[0].row !== undefined && tbody) {
-                  const category = keys[sel[0].row];
-                  if (elementId.includes('ringkasan') && menuId) navTo(menuId);
-                  
-                  $(tbody).find('tr').hide();
-                  $(tbody).find('tr').each(function() {
-                     if($(this).attr('data-category') === String(category)) $(this).fadeIn(200);
-                  });
-              } else if (tbody) {
-                  $(tbody).find('tr').fadeIn(200);
-              }
-          });
+        google.visualization.events.addListener(chart, 'select', function() {
+          const sel = chart.getSelection();
+          const tbody = document.querySelector('#detail-' + prefix + '-table tbody');
+          
+          if (sel.length > 0 && sel[0].row !== null && sel[0].row !== undefined && tbody) {
+            const category = keys[sel[0].row];
+            if (elementId.includes('ringkasan') && menuId) navTo(menuId);
+            
+            $(tbody).find('tr').hide();
+            $(tbody).find('tr').each(function() {
+              if($(this).attr('data-category') === String(category)) $(this).fadeIn(200);
+            });
+          } else if (tbody) {
+            $(tbody).find('tr').fadeIn(200);
+          }
+        });
       }
       let opts = getChartOptions('donut', true); opts.colors = colorPalette;
       setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
@@ -1475,9 +1490,9 @@
       if(detailBody) {
         let dhtml = [];
         filteredRows.forEach(r => {
-           const getVal = (key) => colIndices[key] !== undefined ? r[colIndices[key]] : '-';
-           let n = getVal('kolomNama'); let kl = getVal('kolomKelas'); let jk = getVal('kolomGender'); let kd = getVal('k_d'); let ki = getVal('k_i'); let ks = getVal('k_s'); let kc = getVal('k_c'); let pd = getVal('p_d'); let pi = getVal('p_i'); let ps = getVal('p_s'); let pc = getVal('p_c'); let hasil = getVal('kolomDISC');
-           if (isVal(hasil)) dhtml.push(`<tr data-category="${hasil}"><td class="text-start" style="white-space:nowrap;">${n}</td><td>${String(jk).charAt(0).toUpperCase()}</td><td>${kl}</td><td class="cell-score" style="background-color: #f1f5f9">${kd}</td><td class="cell-score" style="background-color: #f1f5f9">${ki}</td><td class="cell-score" style="background-color: #f1f5f9">${ks}</td><td class="cell-score" style="background-color: #f1f5f9">${kc}</td><td class="cell-score" style="background-color: #f1f5f9">${pd}</td><td class="cell-score" style="background-color: #f1f5f9">${pi}</td><td class="cell-score" style="background-color: #f1f5f9">${ps}</td><td class="cell-score" style="background-color: #f1f5f9">${pc}</td><td style="font-weight:bold; background-color: #0d9488; color:#fff">${hasil}</td></tr>`);
+          const getVal = (key) => colIndices[key] !== undefined ? r[colIndices[key]] : '-';
+          let n = getVal('kolomNama'); let kl = getVal('kolomKelas'); let jk = getVal('kolomGender'); let kd = getVal('k_d'); let ki = getVal('k_i'); let ks = getVal('k_s'); let kc = getVal('k_c'); let pd = getVal('p_d'); let pi = getVal('p_i'); let ps = getVal('p_s'); let pc = getVal('p_c'); let hasil = getVal('kolomDISC');
+          if (isVal(hasil)) dhtml.push(`<tr data-category="${hasil}"><td class="text-start" style="white-space:nowrap;">${n}</td><td>${String(jk).charAt(0).toUpperCase()}</td><td>${kl}</td><td class="cell-score" style="background-color: #f1f5f9">${kd}</td><td class="cell-score" style="background-color: #f1f5f9">${ki}</td><td class="cell-score" style="background-color: #f1f5f9">${ks}</td><td class="cell-score" style="background-color: #f1f5f9">${kc}</td><td class="cell-score" style="background-color: #f1f5f9">${pd}</td><td class="cell-score" style="background-color: #f1f5f9">${pi}</td><td class="cell-score" style="background-color: #f1f5f9">${ps}</td><td class="cell-score" style="background-color: #f1f5f9">${pc}</td><td style="font-weight:bold; background-color: #0d9488; color:#fff">${hasil}</td></tr>`);
         }); detailBody.innerHTML = dhtml.join('');
       }
     }
@@ -1494,19 +1509,19 @@
     function renderReportGayaBelajar(filteredRows, dataGaya) { renderDonutChart(dataGaya, 'chart_gaya_detail', ['#3b82f6', '#ec4899', '#06b6d4'], 'gaya', 'menu-gaya'); const summaryTableBody = document.querySelector('#summary-gaya-table tbody'); if(!summaryTableBody) return; let shtml = []; Object.keys(dataGaya).sort((a,b) => dataGaya[b] - dataGaya[a]).forEach(gaya => { shtml.push(`<tr><td class="text-start">${gaya}</td><td class="cell-score">${dataGaya[gaya]}</td></tr>`); }); summaryTableBody.innerHTML = shtml.join(''); const detailTableBody = document.querySelector('#detail-gaya-table tbody'); let dhtml = []; filteredRows.forEach(row => { let nama = colIndices.kolomNama !== undefined ? row[colIndices.kolomNama] : '-'; let jk = colIndices.kolomGender !== undefined ? row[colIndices.kolomGender] : '-'; let kelas = colIndices.kolomKelas !== undefined ? row[colIndices.kolomKelas] : '-'; let tipe = colIndices.kolomGayaBelajar !== undefined ? row[colIndices.kolomGayaBelajar] : '-'; const getCell = (colKey, bgColor) => { let val = colIndices[colKey] !== undefined ? row[colIndices[colKey]] : '-'; let colorStyle = isVal(val) ? `background-color: ${bgColor};` : ''; return `<td class="cell-score" style="${colorStyle}">${val}</td>`; }; if (isVal(tipe)) dhtml.push(`<tr data-category="${tipe}"><td class="text-start" style="white-space:nowrap;">${nama}</td><td>${String(jk).charAt(0).toUpperCase()}</td><td>${kelas}</td>${getCell('kolomVis', '#f1f5f9')}${getCell('kolomAud', '#f1f5f9')}${getCell('kolomKines', '#f1f5f9')}<td style="font-weight:bold; color:#0d9488;">${tipe}</td></tr>`); }); detailTableBody.innerHTML = dhtml.join(''); }
 
     function renderIndivColumnChart(dataPairs, elementId, colorHex, isLight = false) {
-        if(!document.getElementById(elementId)) return;
-        const dataArray = [['Kategori', 'Nilai', { role: 'style' }]];
-        dataPairs.forEach(pair => { dataArray.push([pair[0], pair[1], `color: ${colorHex}`]); });
-        const chart = new google.visualization.ColumnChart(document.getElementById(elementId));
-        let opts = getChartOptions('single', isLight); opts.chartArea = { left: '8%', width: '90%', height: '65%', top: 20 };
-        setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
+      if(!document.getElementById(elementId)) return;
+      const dataArray = [['Kategori', 'Nilai', { role: 'style' }]];
+      dataPairs.forEach(pair => { dataArray.push([pair[0], pair[1], `color: ${colorHex}`]); });
+      const chart = new google.visualization.ColumnChart(document.getElementById(elementId));
+      let opts = getChartOptions('single', isLight); opts.chartArea = { left: '8%', width: '90%', height: '65%', top: 20 };
+      setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
     }
     
     function renderIndivGroupedChart(dataArray, elementId, colorPalette, isLight = false) {
-        if(!document.getElementById(elementId)) return;
-        const chart = new google.visualization.ColumnChart(document.getElementById(elementId));
-        let opts = getChartOptions('grouped', isLight); opts.colors = colorPalette; opts.chartArea = { left: '8%', width: '90%', height: '55%', top: 35 };
-        setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
+      if(!document.getElementById(elementId)) return;
+      const chart = new google.visualization.ColumnChart(document.getElementById(elementId));
+      let opts = getChartOptions('grouped', isLight); opts.colors = colorPalette; opts.chartArea = { left: '8%', width: '90%', height: '55%', top: 35 };
+      setTimeout(() => { chart.draw(google.visualization.arrayToDataTable(dataArray), opts); }, 50);
     }
 
     let resizeTimer;
