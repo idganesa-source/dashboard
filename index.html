@@ -27,15 +27,118 @@
     body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
     .app-wrapper { display: flex; width: 100%; height: 100vh; overflow: hidden; }
     
-    /* LOGIN SCREEN (TETAP GELAP) */
-    #login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #121417; display: flex; justify-content: center; align-items: center; z-index: 3000; }
-    .login-box { background-color: #1e2126; padding: 45px 40px; border-radius: 12px; box-shadow: 0 15px 50px rgba(0,0,0,0.5); text-align: center; width: 100%; max-width: 420px; border: 1px solid #2f333d; }
-    .login-logo { width: 110px; height: 110px; margin-bottom: 30px; object-fit: contain; }
-    .login-input { width: 100%; padding: 15px 20px; margin-bottom: 18px; border-radius: 30px; border: 1px solid #2f333d; background-color: #1a1c20; color: #ffffff; font-size: 16px; text-align: center; outline: none; transition: 0.3s; }
-    .login-input:focus { border-color: #00bcd4; box-shadow: 0 0 10px rgba(0, 188, 212, 0.4); }
-    .btn-signin { width: 100%; padding: 14px; border-radius: 30px; background-color: #008080; color: white; border: none; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-    .btn-signin:hover { background-color: #006666; transform: translateY(-2px); }
-    #login-error { color: #ff4d4d; font-size: 14px; margin-top: -5px; margin-bottom: 15px; display: none; }
+    /* =======================================================
+       🔥 LOGIN SCREEN BARU: SPLIT 2 KOLOM (MODERN & ELEGAN)
+    ======================================================= */
+    #login-screen {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: #ffffff; display: flex; z-index: 3000; overflow: hidden;
+    }
+    .login-left-panel {
+      width: 50%; height: 100%;
+      background: radial-gradient(circle at 85% 20%, rgba(13, 148, 136, 0.22) 0%, rgba(15, 23, 42, 0) 55%), #0c1017;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 50px 60px; color: #ffffff; position: relative;
+    }
+    .login-left-brand {
+      display: flex; align-items: center; gap: 15px;
+    }
+    .login-left-brand img {
+      width: 45px; height: 45px; object-fit: contain;
+    }
+    .login-left-brand .brand-title {
+      font-size: 20px; font-weight: 900; letter-spacing: 2px; color: #ffffff; margin: 0; line-height: 1.1;
+    }
+    .login-left-brand .brand-subtitle {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: #2dd4bf; text-transform: uppercase; margin-top: 2px; display: block;
+    }
+    .login-left-content {
+      max-width: 480px; margin-top: -30px;
+    }
+    .login-left-content h1 {
+      font-size: 38px; font-weight: 800; line-height: 1.25; color: #ffffff; margin-bottom: 20px;
+    }
+    .login-left-content h1 span {
+      color: #2dd4bf;
+    }
+    .login-left-content p {
+      font-size: 15px; color: #94a3b8; line-height: 1.6; margin: 0;
+    }
+    .login-left-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 25px;
+      font-size: 13px; color: #64748b;
+    }
+    .login-stat-group {
+      display: flex; gap: 35px;
+    }
+    .login-stat-item strong {
+      display: block; font-size: 20px; font-weight: 800; color: #38bdf8;
+    }
+    .login-stat-item span {
+      font-size: 12px; color: #64748b; text-transform: lowercase;
+    }
+
+    .login-right-panel {
+      width: 50%; height: 100%; background-color: #ffffff;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px; overflow-y: auto;
+    }
+    .login-form-container {
+      width: 100%; max-width: 380px;
+    }
+    .login-form-container h2 {
+      font-size: 28px; font-weight: 800; color: #0f172a; margin-bottom: 6px;
+    }
+    .login-form-container p.subtext {
+      font-size: 14px; color: #64748b; margin-bottom: 35px;
+    }
+    .form-group-custom {
+      margin-bottom: 20px; text-align: left;
+    }
+    .form-group-custom label {
+      display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 8px;
+    }
+    .login-input-custom {
+      width: 100%; padding: 12px 16px; font-size: 15px; color: #1e293b;
+      background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px;
+      outline: none; transition: all 0.2s ease;
+    }
+    .login-input-custom:focus {
+      border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+    .password-wrapper {
+      position: relative; display: flex; align-items: center;
+    }
+    .password-wrapper input {
+      padding-right: 42px;
+    }
+    .toggle-pass-btn {
+      position: absolute; right: 14px; background: none; border: none;
+      color: #94a3b8; cursor: pointer; font-size: 16px; padding: 0;
+      display: flex; align-items: center; justify-content: center; transition: 0.2s;
+    }
+    .toggle-pass-btn:hover { color: #475569; }
+    .btn-signin-custom {
+      width: 100%; padding: 13px; font-size: 16px; font-weight: 700; color: #0f766e;
+      background-color: #99f6e4; border: none; border-radius: 10px;
+      cursor: pointer; transition: all 0.2s ease; margin-top: 10px;
+    }
+    .btn-signin-custom:hover {
+      background-color: #5eead4; color: #0f766e; transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(45, 212, 191, 0.25);
+    }
+    .btn-signin-custom:disabled {
+      background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none;
+    }
+    #login-error { color: #ef4444; font-size: 13px; font-weight: 600; margin-top: -5px; margin-bottom: 15px; display: none; }
+
+    @media (max-width: 900px) {
+      #login-screen { flex-direction: column; overflow-y: auto; }
+      .login-left-panel { width: 100%; height: auto; padding: 35px 25px; }
+      .login-left-content h1 { font-size: 28px; margin-top: 25px; }
+      .login-right-panel { width: 100%; height: auto; padding: 40px 25px; }
+    }
 
     /* SIDEBAR (TETAP ELEGAN GELAP) */
     .sidebar { width: 260px; min-width: 260px; background-color: #121417; border-right: 1px solid #e2e8f0; transition: margin 0.3s ease-in-out; height: 100vh; display: flex; flex-direction: column; overflow-y: auto; z-index: 1000; margin-left: -260px; }
@@ -408,14 +511,61 @@
     </div>
   </div>
 
-  <!-- LOGIN SCREEN (TETAP GELAP) -->
+  <!-- 🔥 LOGIN SCREEN BARU: SPLIT 2 KOLOM 🔥 -->
   <div id="login-screen">
-    <div class="login-box">
-      <img src="https://lh3.googleusercontent.com/d/1Wqpp9soE46uHXkCdJiPF3pzbt8QGTypJ" alt="Logo" class="login-logo">
-      <input type="email" id="input-email" class="login-input" placeholder="EMAIL" autocomplete="off" onkeypress="handleEnter(event)">
-      <input type="password" id="input-password" class="login-input" placeholder="PASSWORD" autocomplete="off" onkeypress="handleEnter(event)">
-      <div id="login-error"></div>
-      <button class="btn-signin" id="btn-login" onclick="doLogin()">Sign In</button>
+    <!-- PANEL KIRI (DARK GRADIENT & VALUE PROPOSITION) -->
+    <div class="login-left-panel">
+      <div class="login-left-brand">
+        <img src="https://lh3.googleusercontent.com/d/1Wqpp9soE46uHXkCdJiPF3pzbt8QGTypJ" alt="Logo Ganesa">
+        <div>
+          <h2 class="brand-title">GANESA</h2>
+          <span class="brand-subtitle">Gerbang Asesmen Indonesia</span>
+        </div>
+      </div>
+
+      <div class="login-left-content">
+        <h1>Kenali potensi setiap siswa, <span>arahkan masa depannya.</span></h1>
+        <p>Memetakan minat, bakat, gaya belajar, dan kepribadian peserta didik secara holistik.</p>
+      </div>
+
+      <div class="login-left-footer">
+        <div class="login-stat-group">
+          <div class="login-stat-item">
+            <strong>500+</strong>
+            <span>institutions</span>
+          </div>
+          <div class="login-stat-item">
+            <strong>13</strong>
+            <span>assessments</span>
+          </div>
+        </div>
+        <div>© 2026 AKTARA</div>
+      </div>
+    </div>
+
+    <!-- PANEL KANAN (FORM LOGIN CLEAN WHITE) -->
+    <div class="login-right-panel">
+      <div class="login-form-container">
+        <h2>Admin sign in</h2>
+        <p class="subtext">Kelola data asesmen, laporan psikologi, & profil pelajar</p>
+
+        <div id="login-error"></div>
+
+        <div class="form-group-custom">
+          <label for="input-email">Email</label>
+          <input type="email" id="input-email" class="login-input-custom" placeholder="contoh@sekolah.id" autocomplete="off" onkeypress="handleEnter(event)">
+        </div>
+
+        <div class="form-group-custom">
+          <label for="input-password">Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="input-password" class="login-input-custom" placeholder="••••••••" autocomplete="off" onkeypress="handleEnter(event)">
+            <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" title="Lihat/Sembunyikan Password">👁️</button>
+          </div>
+        </div>
+
+        <button class="btn-signin-custom" id="btn-login" onclick="doLogin()">Sign In</button>
+      </div>
     </div>
   </div>
 
@@ -745,6 +895,13 @@
     window.globalCharts = {};
 
     function handleEnter(e) { if(e.key === 'Enter') doLogin(); }
+
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('input-password');
+      if (passInput) {
+        passInput.type = passInput.type === 'password' ? 'text' : 'password';
+      }
+    }
 
     function doLogin() {
       const email = document.getElementById('input-email').value;
