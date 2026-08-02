@@ -771,18 +771,16 @@
             const btnUpload = document.getElementById('btn-upload-excel');
             const btnCreateUser = document.getElementById('btn-create-user');
 
-            // 🔥 LOGIKA BARU: PENGECEKAN SUPER ADMIN DAN KONSULTAN PSIKOLOG 🔥
+            // 🔥 LOGIKA PENGECEKAN SUPER ADMIN DAN KONSULTAN PSIKOLOG 🔥
             const isSuperAdmin = (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG");
             const isKonsultan = (sessionSekolah.toUpperCase() === "KONSULTAN_AKTARA" || email.toLowerCase() === "aktara@psikolog");
 
             if (isSuperAdmin || isKonsultan) {
-              // Keduanya berhak melihat filter SEMUA SEKOLAH & layout berubah jadi col-md-4
               document.getElementById('box-filter-sekolah').style.display = 'block';
               document.getElementById('box-filter-nama').className = 'col-md-4';
               document.getElementById('box-filter-kelas').className = 'col-md-4';
               
               if (isSuperAdmin) {
-                // Khusus AKTARA_PSIKOLOG yang bisa Upload & Buat Akun
                 if (btnUpload) btnUpload.style.display = 'flex';
                 if (btnCreateUser) btnCreateUser.style.display = 'flex';
               } else {
@@ -791,7 +789,6 @@
                 if (btnCreateUser) btnCreateUser.style.display = 'none';
               }
             } else {
-              // Akun Sekolah Biasa (hanya untuk sekolahnya sendiri)
               document.getElementById('box-filter-sekolah').style.display = 'none';
               document.getElementById('box-filter-nama').className = 'col-md-6';
               document.getElementById('box-filter-kelas').className = 'col-md-6';
@@ -802,7 +799,10 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
 
-            callGAS("getSchoolData", { namaSekolah: res.namaSekolah })
+            // 🔥 PERBAIKAN PENTING: KONSULTAN AKAN MEMINTA SELURUH DATA KE BACKEND SEPERTI SUPER ADMIN 🔥
+            const targetSekolahFetch = (isSuperAdmin || isKonsultan) ? "AKTARA_PSIKOLOG" : res.namaSekolah;
+
+            callGAS("getSchoolData", { namaSekolah: targetSekolahFetch })
               .then(initDashboard)
               .catch(err => alert("Gagal mengambil data: " + err.message));
           } else {
