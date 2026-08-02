@@ -771,9 +771,9 @@
             const btnUpload = document.getElementById('btn-upload-excel');
             const btnCreateUser = document.getElementById('btn-create-user');
 
-            // 🔥 LOGIKA PENGECEKAN SUPER ADMIN DAN KONSULTAN PSIKOLOG 🔥
-            const isSuperAdmin = (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG");
-            const isKonsultan = (sessionSekolah.toUpperCase() === "KONSULTAN_AKTARA" || email.toLowerCase() === "aktara@psikolog");
+            // 🔥 LOGIKA BARU: PENGECEKAN SUPER ADMIN DAN KONSULTAN PSIKOLOG 🔥
+            const isSuperAdmin = (sessionSekolah.toUpperCase() === "SUPER ADMIN");
+            const isKonsultan = (sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
 
             if (isSuperAdmin || isKonsultan) {
               document.getElementById('box-filter-sekolah').style.display = 'block';
@@ -784,7 +784,6 @@
                 if (btnUpload) btnUpload.style.display = 'flex';
                 if (btnCreateUser) btnCreateUser.style.display = 'flex';
               } else {
-                // Konsultan Psikolog TIDAK BISA Upload Data & TIDAK BISA Buat Akun
                 if (btnUpload) btnUpload.style.display = 'none';
                 if (btnCreateUser) btnCreateUser.style.display = 'none';
               }
@@ -799,10 +798,7 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
 
-            // 🔥 SOLUSI UTAMA: Agar tidak error "Belum ada data", konsultan meminjam kunci "AKTARA_PSIKOLOG" untuk mengunduh seluruh data! 🔥
-            const targetSekolahFetch = (isSuperAdmin || isKonsultan) ? "AKTARA_PSIKOLOG" : res.namaSekolah;
-
-            callGAS("getSchoolData", { namaSekolah: targetSekolahFetch })
+            callGAS("getSchoolData", { namaSekolah: res.namaSekolah })
               .then(initDashboard)
               .catch(err => alert("Gagal mengambil data: " + err.message));
           } else {
@@ -1026,8 +1022,8 @@
       const btnCreateUser = document.getElementById('btn-create-user');
 
       // 🔥 LOGIKA DI INIT DASHBOARD: FILTER SEKOLAH TERBUKA UNTUK ADMIN & KONSULTAN 🔥
-      const isSuperAdmin = (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG");
-      const isKonsultan = (sessionSekolah.toUpperCase() === "KONSULTAN_AKTARA" || document.getElementById('input-email').value.trim().toLowerCase() === "aktara@psikolog");
+      const isSuperAdmin = (sessionSekolah.toUpperCase() === "SUPER ADMIN");
+      const isKonsultan = (sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
 
       if (isSuperAdmin || isKonsultan) {
         const setSekolah = new Set();
@@ -1067,8 +1063,8 @@
       let fSekolah = $('#filter-sekolah').val();
       let fKelas = $('#filter-kelas').val();
       
-      // Baik AKTARA_PSIKOLOG maupun KONSULTAN_AKTARA bisa membaca semua sekolah
-      const isPrivileged = (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG" || sessionSekolah.toUpperCase() === "KONSULTAN_AKTARA" || document.getElementById('input-email').value.trim().toLowerCase() === "aktara@psikolog");
+      // Baik SUPER ADMIN maupun AKATARA_PSIKOLOGI bisa membaca semua sekolah
+      const isPrivileged = (sessionSekolah.toUpperCase() === "SUPER ADMIN" || sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
       if (!isPrivileged) fSekolah = sessionSekolah;
 
       let validRows = allRows;
@@ -1115,8 +1111,8 @@
 
       let filteredRows = allRows;
       
-      // Baik AKTARA_PSIKOLOG maupun KONSULTAN_AKTARA bisa memfilter sekolah
-      const isPrivileged = (sessionSekolah.toUpperCase() === "AKTARA_PSIKOLOG" || sessionSekolah.toUpperCase() === "KONSULTAN_AKTARA" || document.getElementById('input-email').value.trim().toLowerCase() === "aktara@psikolog");
+      // Baik SUPER ADMIN maupun AKATARA_PSIKOLOGI bisa memfilter sekolah
+      const isPrivileged = (sessionSekolah.toUpperCase() === "SUPER ADMIN" || sessionSekolah.toUpperCase() === "AKATARA_PSIKOLOGI");
       if (isPrivileged && filterSekolah && colIndices.kolomNamaSekolah !== undefined) {
         filteredRows = filteredRows.filter(r => String(r[colIndices.kolomNamaSekolah]).trim() === filterSekolah);
       }
