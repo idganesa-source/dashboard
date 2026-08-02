@@ -41,7 +41,7 @@
       padding: 50px 60px; color: #ffffff; position: relative;
     }
     .login-left-brand {
-      display: flex; align-items: center; gap: 15px;
+      display: flex; align-items: center; gap: 15px; margin-bottom: 25px;
     }
     .login-left-brand img {
       width: 45px; height: 45px; object-fit: contain;
@@ -53,7 +53,7 @@
       font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: #2dd4bf; text-transform: uppercase; margin-top: 2px; display: block;
     }
     .login-left-content {
-      max-width: 480px; margin-top: -30px;
+      max-width: 480px; margin-top: 10px;
     }
     .welcome-badge {
       display: inline-block;
@@ -67,6 +67,7 @@
       margin-bottom: 18px;
       border: 1px solid rgba(45, 212, 191, 0.25);
       text-transform: uppercase;
+      word-break: break-word;
     }
     .login-left-content h1 {
       font-size: 38px; font-weight: 800; line-height: 1.25; color: #ffffff; margin-bottom: 20px;
@@ -137,11 +138,27 @@
     }
     #login-error { color: #ef4444; font-size: 13px; font-weight: 600; margin-top: -5px; margin-bottom: 15px; display: none; }
 
+    /* =======================================================
+       🔥 PERBAIKAN RESPONSIVE KHUSUS MOBILE (HP)
+    ======================================================= */
     @media (max-width: 900px) {
       #login-screen { flex-direction: column; overflow-y: auto; }
-      .login-left-panel { width: 100%; height: auto; padding: 35px 25px; }
-      .login-left-content h1 { font-size: 28px; margin-top: 25px; }
-      .login-right-panel { width: 100%; height: auto; padding: 40px 25px; }
+      .login-left-panel { width: 100%; height: auto; padding: 30px 20px; }
+      .login-left-brand { margin-bottom: 15px; }
+      .login-left-content { margin-top: 10px; }
+      .welcome-badge { margin-top: 5px; margin-bottom: 12px; font-size: 10px; }
+      .login-left-content h1 { font-size: 26px; margin-bottom: 12px; }
+      .login-left-content p { font-size: 13px; }
+      .login-left-footer { padding-top: 15px; margin-top: 20px; }
+      .login-right-panel { width: 100%; height: auto; padding: 30px 20px; }
+      
+      /* Perbaikan Konten Dashboard HP */
+      .content-container { padding: 15px 12px; }
+      .score-box { padding: 12px; }
+      .score-value { font-size: 28px; }
+      .chart-div { min-height: 280px; }
+      .chart-div-large { min-height: 340px; }
+      .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     }
 
     /* SIDEBAR (TETAP ELEGAN GELAP) */
@@ -430,7 +447,7 @@
       .school-header-panel { flex-direction: column; align-items: flex-start; gap: 12px; padding: 15px; }
       .assessment-title { text-align: left; padding-left: 0; border-left: none; border-top: 1px solid #e2e8f0; padding-top: 10px; width: 100%; font-size: 14px; }
       .detail-hint { opacity: 1; }
-      .paper-report { padding: 20px; }
+      .paper-report { padding: 18px; }
       .pr-header img { width: 60px; height: 60px; }
       .pr-header-text h1 { font-size: 20px; }
       .mbti-label-left, .mbti-label-right { font-size: 11px; width: 60px; }
@@ -1121,27 +1138,34 @@
       let textColor = isLight ? '#334155' : '#d1d5db';
       let axisColor = isLight ? '#64748b' : '#8a94a6';
       let gridColor = isLight ? '#e2e8f0' : '#2f333d';
+      let isMobile = window.innerWidth <= 768;
       
       let options = {
         backgroundColor: 'transparent',
-        legend: { textStyle: { color: textColor, fontSize: 13 }, position: 'top' }, 
-        hAxis: { textStyle: { color: axisColor, fontSize: 10 }, gridlines: { color: gridColor }, baselineColor: gridColor },
-        vAxis: { textStyle: { color: axisColor, fontSize: 11 }, gridlines: { color: gridColor }, baselineColor: gridColor },
+        legend: { textStyle: { color: textColor, fontSize: isMobile ? 11 : 13 }, position: 'top' }, 
+        hAxis: { 
+          textStyle: { color: axisColor, fontSize: isMobile ? 9 : 10 }, 
+          gridlines: { color: gridColor }, 
+          baselineColor: gridColor,
+          slantedText: isMobile,
+          slantedTextAngle: isMobile ? 35 : 0
+        },
+        vAxis: { textStyle: { color: axisColor, fontSize: isMobile ? 9 : 11 }, gridlines: { color: gridColor }, baselineColor: gridColor },
         animation: { startup: true, duration: 600, easing: 'out' } 
       };
 
       if (type === 'single') {
         options.legend = 'none';
-        options.chartArea = { left: '8%', width: '90%', height: '70%', top: 30 };
+        options.chartArea = { left: isMobile ? '12%' : '8%', width: isMobile ? '82%' : '90%', height: isMobile ? '60%' : '70%', top: 30 };
       } else if (type === 'grouped') {
-        options.chartArea = { left: '8%', width: '90%', height: '65%', top: 40 };
+        options.chartArea = { left: isMobile ? '12%' : '8%', width: isMobile ? '82%' : '90%', height: isMobile ? '55%' : '65%', top: 40 };
       } else if (type === 'donut') {
         options.pieHole = 0.35;
         options.pieSliceBorderColor = isLight ? '#ffffff' : '#22252a';
         options.pieSliceText = 'value';
-        options.pieSliceTextStyle = { fontSize: 14, bold: true, color: '#ffffff' };
-        options.legend = { textStyle: { color: textColor, fontSize: 13 }, position: 'right', alignment: 'center' };
-        options.chartArea = { left: '5%', width: '60%', height: '85%', top: 20 };
+        options.pieSliceTextStyle = { fontSize: isMobile ? 12 : 14, bold: true, color: '#ffffff' };
+        options.legend = { textStyle: { color: textColor, fontSize: isMobile ? 11 : 13 }, position: isMobile ? 'bottom' : 'right', alignment: 'center' };
+        options.chartArea = { left: isMobile ? '5%' : '5%', width: isMobile ? '90%' : '60%', height: isMobile ? '70%' : '85%', top: 20 };
       }
       return options;
     }
